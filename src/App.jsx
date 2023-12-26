@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import RootLayout from "./layout/RootLayout";
+import FlightsLayout from "./layout/FlightsLayout";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <div>Home</div> },
+      {
+        path: "flights",
+        element: <FlightsLayout />,
+        children: [
+          { index: true, element: <div>Arrivals</div> },
+          { path: "departures", element: <div>Departures</div> },
+        ],
+      },
+      { path: "practical-guide", element: <div>Practical Guide</div> },
+      { path: "services-and-sales", element: <div>Services And Sales</div> },
+      {
+        path: "parking-and-approach",
+        element: <div>Parking And Approach</div>,
+      },
+    ],
+  },
+]);
 
-export default App
+const App = () => {
+  return <RouterProvider router={router} />;
+};
+
+export default App;
