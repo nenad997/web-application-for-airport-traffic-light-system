@@ -26,11 +26,18 @@
         gap: 10px;
         color: rgb(117, 113, 113);
         padding: 5px 15px;
+        letter-spacing: 1px;
+        transition: all .2s ease-in-out;
+        clear: both;
+        overflow: hidden;
+        border: none;
+        outline: none;
 
         &.active {
           background-color: white;
           color: rgb(75, 75, 235);
-          border-top: 4px solid rgb(75, 75, 235);
+          border-bottom: 2px solid rgb(75, 75, 235);
+          clear: both;
         }
       }
     }

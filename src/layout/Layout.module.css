@@ -1,0 +1,38 @@
+.text-wrapper {
+  max-width: 100%;
+  margin: auto;
+  margin-top: 2rem;
+
+  & h4 {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 5px;
+  }
+}
+
+.btn-wrapper {
+  max-width: 15%;
+  margin: auto;
+  margin-top: 5rem;
+
+  & button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 25px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(106, 205, 238);
+    color: white;
+
+    &:hover {
+      background-color: rgb(138, 208, 231);
+    }
+  }
+}

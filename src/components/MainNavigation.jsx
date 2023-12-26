@@ -17,7 +17,12 @@ const MainNavigation = () => {
           </span>
         </p>
         <h2>
-          <span>Belgrade</span> Airport
+          <span>
+            <span>Bel</span>
+            <span>gr</span>
+            <span>ade</span>
+          </span>{" "}
+          <MdOutlineLocalAirport />
         </h2>
       </div>
       <nav>

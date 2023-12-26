@@ -1,0 +1,23 @@
+.container {
+  border-bottom: 1px solid rgb(134, 134, 236);
+  max-width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 10px 10px;
+  text-align: left;
+
+  &:hover {
+    background-color: rgb(123, 228, 228);
+    color: white;
+    cursor: pointer;
+  }
+
+  & span {
+    font-size: 20px;
+    letter-spacing: 1px;
+    flex: 1;
+  }
+}
