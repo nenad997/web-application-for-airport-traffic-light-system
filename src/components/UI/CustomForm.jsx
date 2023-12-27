@@ -46,7 +46,10 @@ const CustomForm = ({ type }) => {
       </div>
       <div className={classes.control}>
         <label htmlFor="status">Status</label>
-        <input type="text" id="status" name="status" />
+        <select name="status" id="status">
+          <option value="land">Land</option>
+          <option value="tookoff">Took Off</option>
+        </select>
       </div>
       <div className={classes.control}>
         <label htmlFor="type">Type</label>
