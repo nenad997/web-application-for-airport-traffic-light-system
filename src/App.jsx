@@ -2,7 +2,7 @@ import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "./layout/RootLayout";
-import FlightsLayout from "./layout/FlightsLayout";
+import FlightsLayout, { loader as flightsLoader } from "./layout/FlightsLayout";
 import Home from "./pages/Home";
 import Arrival from "./pages/Arrival";
 import Departure from "./pages/Departure";
@@ -17,7 +17,9 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       {
         path: "flights",
+        id: "flights",
         element: <FlightsLayout />,
+        loader: flightsLoader,
         children: [
           { index: true, element: <Arrival /> },
           { path: "departures", element: <Departure /> },

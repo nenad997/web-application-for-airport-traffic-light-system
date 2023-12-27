@@ -43,15 +43,8 @@ export async function action({ request, params }) {
 
   console.log(responseData);
 
-  console.log({
-    airport,
-    flightNumber,
-    scheduleTime,
-    avioCompany,
-    terminal,
-    status,
-    type,
-  });
-
-  return redirect("/flights");
+  if (type === "arrival") {
+    return redirect("/flights");
+  }
+  return redirect("/flights/departures");
 }

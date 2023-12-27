@@ -36,3 +36,41 @@ const FlightsLayout = () => {
 };
 
 export default FlightsLayout;
+
+export async function loader() {
+  const graphqQuery = {
+    query: `
+    {
+      getFlights {
+        _id
+        airport
+        flightNumber
+        scheduleTime
+        avioCompany
+        terminal
+        status
+        type
+      }
+    }
+    `,
+  };
+
+  const response = await fetch("http://localhost:8080/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(graphqQuery),
+  });
+
+  try {
+    const responseData = await response.json();
+
+    if (!responseData.data) {
+      return [];
+    }
+    return responseData.data.getFlights;
+  } catch (err) {
+    console.log(err);
+  }
+}

@@ -47,8 +47,8 @@ const CustomForm = ({ type, method }) => {
       <div className={classes.control}>
         <label htmlFor="status">Status</label>
         <select name="status" id="status">
-          <option value="land">Land</option>
-          <option value="tookoff">Took Off</option>
+          <option value="Land">Land</option>
+          <option value="Took off">Took Off</option>
         </select>
       </div>
       <div className={classes.control}>
