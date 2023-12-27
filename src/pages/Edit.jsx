@@ -1,7 +1,9 @@
 import React from "react";
-import { useParams, Form } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
+import Layout from "../components/UI/Layout";
 import CustomForm from "../components/UI/CustomForm";
+import classes from "./Page.module.css";
 
 const Edit = () => {
   const { flightId } = useParams();
@@ -11,35 +13,12 @@ const Edit = () => {
   };
 
   return (
-    <div style={{ marginTop: "2rem" }}>
+    <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={0}>
       <CustomForm type="edit" />
-      <div
-        style={{
-          textAlign: "center",
-          maxWidth: "15%",
-          margin: "auto",
-          marginTop: "3rem",
-          marginBottom: "3rem",
-        }}
-      >
-        <button
-          style={{
-            width: "100%",
-            padding: "10px 15px",
-            border: "none",
-            outline: "none",
-            fontSize: "25px",
-            cursor: "pointer",
-            borderRadius: "5px",
-            backgroundColor: "red",
-            color: "white",
-          }}
-          onClick={deleteFlightHandler}
-        >
-          Delete Flight
-        </button>
+      <div className={classes["btn-container"]}>
+        <button onClick={deleteFlightHandler}>Delete Flight</button>
       </div>
-    </div>
+    </Layout>
   );
 };
 

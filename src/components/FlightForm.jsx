@@ -1,13 +1,13 @@
 import React from "react";
 
+import Layout from "./UI/Layout";
 import CustomForm from "./UI/CustomForm";
-import classes from "./FlightForm.module.css";
 
 const FlightForm = () => {
   return (
-    <div className={classes.wrapper}>
+    <Layout marginBottom="2rem">
       <CustomForm type="submit" />
-    </div>
+    </Layout>
   );
 };
 

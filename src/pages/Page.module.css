@@ -1,0 +1,19 @@
+.btn-container {
+  text-align: center;
+  max-width: 15%;
+  margin: auto;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  & button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+  }
+}
