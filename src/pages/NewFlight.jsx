@@ -1,9 +1,9 @@
 import React from "react";
 
-import AddFlightForm from "../components/AddFlightForm";
+import FlightForm from "../components/FlightForm";
 
 const NewFlight = () => {
-  return <AddFlightForm />;
+  return <FlightForm />;
 };
 
 export default NewFlight;

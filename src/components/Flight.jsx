@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import classes from "./Flight.module.css";
 
@@ -9,21 +10,19 @@ const Flight = ({
   avioCompany,
   exitTerminal,
   status,
-  id
+  id,
 }) => {
-  const clickHandler = () => {
-    console.log(id);
-  };
-
   return (
-    <div className={classes.container} onClick={clickHandler}>
-      <span>{departureAirport}</span>
-      <span>{flightNumber}</span>
-      <span>{scheduleTime}</span>
-      <span>{avioCompany}</span>
-      <span>{exitTerminal}</span>
-      <span>{status}</span>
-    </div>
+    <Link to={`/flights/${id}`}>
+      <div className={classes.container}>
+        <span>{departureAirport}</span>
+        <span>{flightNumber}</span>
+        <span>{scheduleTime}</span>
+        <span>{avioCompany}</span>
+        <span>{exitTerminal}</span>
+        <span>{status}</span>
+      </div>
+    </Link>
   );
 };
 

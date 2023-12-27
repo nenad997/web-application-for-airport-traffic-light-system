@@ -1,0 +1,16 @@
+.details {
+  max-width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+
+  & div:first-child {
+    border: 1px solid black;
+    flex: 1;
+  }
+
+  & div:last-child {
+    border: 1px solid black;
+    flex: 1;
+  }
+}

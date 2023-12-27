@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Arrival from "./pages/Arrival";
 import Departure from "./pages/Departure";
 import NewFlight from "./pages/NewFlight";
+import Edit from "./pages/Edit";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Arrival /> },
           { path: "departures", element: <Departure /> },
+          { path: ":flightId", element: <Edit /> },
         ],
       },
       { path: "practical-guide", element: <div>Practical Guide</div> },
