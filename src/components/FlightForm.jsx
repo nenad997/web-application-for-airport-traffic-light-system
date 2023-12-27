@@ -6,7 +6,7 @@ import CustomForm from "./UI/CustomForm";
 const FlightForm = () => {
   return (
     <Layout marginBottom="2rem">
-      <CustomForm type="submit" />
+      <CustomForm type="submit" method="POST" />
     </Layout>
   );
 };

@@ -3,7 +3,7 @@ import { Form, Link } from "react-router-dom";
 
 import classes from "./CustomForm.module.css";
 
-const CustomForm = ({ type }) => {
+const CustomForm = ({ type, method }) => {
   let buttonText;
   let buttonStyles;
 
@@ -18,12 +18,12 @@ const CustomForm = ({ type }) => {
     (buttonText = "Edit"),
       (buttonStyles = {
         backgroundColor: "yellow",
-        color: "black"
+        color: "black",
       });
   }
 
   return (
-    <Form className={classes.form}>
+    <Form className={classes.form} method={method}>
       <div className={classes.control}>
         <label htmlFor="airport">Airport</label>
         <input type="text" id="airport" name="airport" />
@@ -41,8 +41,8 @@ const CustomForm = ({ type }) => {
         <input type="text" id="avio-company" name="avioCompany" />
       </div>
       <div className={classes.control}>
-        <label htmlFor="exit-terminal">Exit Terminal</label>
-        <input type="text" id="exit-terminal" name="exitTerminal" />
+        <label htmlFor="terminal">Terminal</label>
+        <input type="text" id="terminal" name="terminal" />
       </div>
       <div className={classes.control}>
         <label htmlFor="status">Status</label>

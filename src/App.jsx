@@ -6,7 +6,7 @@ import FlightsLayout from "./layout/FlightsLayout";
 import Home from "./pages/Home";
 import Arrival from "./pages/Arrival";
 import Departure from "./pages/Departure";
-import NewFlight from "./pages/NewFlight";
+import NewFlight, { action as addFlightAction } from "./pages/NewFlight";
 import Edit from "./pages/Edit";
 
 const router = createBrowserRouter([
@@ -30,7 +30,11 @@ const router = createBrowserRouter([
         path: "parking-and-approach",
         element: <div>Parking And Approach</div>,
       },
-      { path: "add-new-flight", element: <NewFlight /> },
+      {
+        path: "add-new-flight",
+        element: <NewFlight />,
+        action: addFlightAction,
+      },
     ],
   },
 ]);
