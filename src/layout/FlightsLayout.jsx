@@ -38,7 +38,7 @@ const FlightsLayout = () => {
 export default FlightsLayout;
 
 export async function loader() {
-  const graphqQuery = {
+  const graphqlQuery = {
     query: `
     {
       getFlights {
@@ -60,7 +60,7 @@ export async function loader() {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(graphqQuery),
+    body: JSON.stringify(graphqlQuery),
   });
 
   try {

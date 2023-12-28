@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Link } from "react-router-dom";
 
 import classes from "./CustomForm.module.css";
 
 const CustomForm = ({ type, method }) => {
+  const [flightType, setFlightType] = useState("Arrival");
+
+  const changeTypeHandler = (event) => {
+    setFlightType(event.target.value);
+  };
+
   let buttonText;
   let buttonStyles;
+
+  if (flightType === "Arrival") {
+  }
 
   if (type === "submit") {
     buttonText = "Submit";
@@ -53,7 +62,7 @@ const CustomForm = ({ type, method }) => {
       </div>
       <div className={classes.control}>
         <label htmlFor="type">Type</label>
-        <select name="type" id="type">
+        <select name="type" id="type" onChange={changeTypeHandler}>
           <option value="arrival">Arrival</option>
           <option value="departure">Departure</option>
         </select>

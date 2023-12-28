@@ -8,6 +8,7 @@ import Arrival from "./pages/Arrival";
 import Departure from "./pages/Departure";
 import NewFlight, { action as addFlightAction } from "./pages/NewFlight";
 import Edit from "./pages/Edit";
+import deleteFlightAction from "./actions/delete-flight-action";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
         element: <NewFlight />,
         action: addFlightAction,
       },
+      { path: "/delete-flight", action: deleteFlightAction },
     ],
   },
 ]);

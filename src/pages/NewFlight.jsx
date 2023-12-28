@@ -21,7 +21,7 @@ export async function action({ request, params }) {
     type,
   } = Object.fromEntries(formData);
 
-  const graphqQuery = {
+  const graphqlQuery = {
     query: `
       mutation {
         createFlight(input: { airport: "${airport}", flightNumber: "${flightNumber}", scheduleTime: "${scheduleTime}", avioCompany: "${avioCompany}", terminal: "${terminal}", status: "${status}", type: "${type}" }) {
@@ -36,7 +36,7 @@ export async function action({ request, params }) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(graphqQuery),
+    body: JSON.stringify(graphqlQuery),
   });
 
   const responseData = await response.json();
