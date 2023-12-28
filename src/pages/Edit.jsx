@@ -11,12 +11,12 @@ const Edit = () => {
   return (
     <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={0}>
       <CustomForm type="edit" />
-      <div className={classes["btn-container"]}>
-        <Form method="POST" action="/delete-flight">
-          <input type="hidden" name="flightId" value={flightId} onChange={undefined} />
-          <button>Delete Flight</button>
-        </Form>
-      </div>
+      <Form method="POST" action="/delete-flight">
+        <div className={classes["btn-container"]}>
+          <input type="hidden" name="flightId" value={flightId} />
+          <button type="submit">Delete Flight</button>
+        </div>
+      </Form>
     </Layout>
   );
 };

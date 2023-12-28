@@ -1,5 +1,5 @@
 import React from "react";
-import { redirect } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 
 import FlightForm from "../components/FlightForm";
 
@@ -38,6 +38,10 @@ export async function action({ request, params }) {
     },
     body: JSON.stringify(graphqlQuery),
   });
+
+  if (!response.ok) {
+    return json({ message: "Invalid input" }, { status: 422 });
+  }
 
   const responseData = await response.json();
 

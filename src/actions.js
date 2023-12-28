@@ -1,8 +1,9 @@
 import { redirect } from "react-router-dom";
 
-export default async function deleteFlight({ request, params }) {
+export async function deleteFlightAction({ request, params }) {
   const formData = await request.formData();
   const { flightId } = Object.fromEntries(formData);
+  console.log(flightId);
 
   const graphqlQuery = {
     query: `
