@@ -10,10 +10,27 @@
     align-content: center;
     flex-wrap: wrap;
 
+    & li:first-child {
+      border-bottom-left-radius: 20px;
+    }
+
+    & li:last-child {
+      border-bottom-right-radius: 20px;
+    }
+
     & li {
       flex: 1;
       text-align: left;
       background-color: rgb(212, 204, 204);
+      color: black;
+
+      & a:first-child {
+        border-bottom-left-radius: 20px;
+      }
+
+      & a:last-child {
+        border-bottom-right-radius: 20px;
+      }
 
       & a {
         text-decoration: none;
