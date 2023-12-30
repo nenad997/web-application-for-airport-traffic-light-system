@@ -25,7 +25,7 @@ export async function action({ request, params }) {
     query: `
       mutation {
         createFlight(input: { airport: "${airport}",
-         flightNumber: "${flightNumber}",
+         flightNumber: "${flightNumber.toUpperCase()}",
          scheduleTime: "${scheduleTime}",
          avioCompany: "${avioCompany}",
          terminal: "${terminal}",
