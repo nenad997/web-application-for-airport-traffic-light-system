@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigation } from "react-router-dom";
 
 import {
   cities,
@@ -11,22 +11,32 @@ import {
 import classes from "./CustomForm.module.css";
 
 const CustomForm = ({ type, method, flight }) => {
+  const navigation = useNavigation();
+
+  const isSubmitting = navigation.state === "submitting";
+
   let buttonText;
   let buttonStyles;
 
   if (type === "submit") {
     buttonText = "Submit";
+    if (isSubmitting) {
+      buttonText = "Submitting...";
+    }
     buttonStyles = {
       backgroundColor: "blue",
     };
   }
 
   if (type === "edit") {
-    (buttonText = "Edit"),
-      (buttonStyles = {
-        backgroundColor: "yellow",
-        color: "black",
-      });
+    buttonText = "Edit";
+    if (isSubmitting) {
+      buttonText = "Editing...";
+    }
+    buttonStyles = {
+      backgroundColor: "yellow",
+      color: "black",
+    };
   }
 
   return (
@@ -78,8 +88,8 @@ const CustomForm = ({ type, method, flight }) => {
           {avioCompaniesData.map(({ avioCompany, country }) => {
             return avioCompany.map((company, index) => (
               <option key={index} value={company}>
-                {company} (<span>{country.charAt(0).toUpperCase()}</span>
-                <span>{country.charAt(1).toUpperCase()}</span>)
+                {company} ({country.charAt(0).toUpperCase()}
+                {country.charAt(1).toUpperCase()})
               </option>
             ));
           })}
