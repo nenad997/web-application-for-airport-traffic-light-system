@@ -27,7 +27,7 @@ const FlightsLayout = () => {
       {condition && (
         <div className={classes["btn-wrapper"]}>
           <Link to="/add-new-flight">
-            <button>New Flight</button>
+            <button title="Add a New Flight">New Flight</button>
           </Link>
         </div>
       )}

@@ -1,23 +1,26 @@
 .link {
   text-decoration: none;
   color: black;
+  display: block;
+  max-width: 80%;
+  margin: auto;
 }
 
 .container {
   border-bottom: 1px solid rgb(134, 134, 236);
-  max-width: 80%;
-  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: nowrap;
   padding: 10px 10px;
   text-align: left;
+  transition: all .2s ease-in;
 
   &:hover {
     background-color: rgb(123, 228, 228);
     color: white;
     cursor: pointer;
+    transform: scale(1.01);
   }
 
   & span {

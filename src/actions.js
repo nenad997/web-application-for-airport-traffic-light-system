@@ -3,7 +3,10 @@ import { redirect } from "react-router-dom";
 export async function deleteFlightAction({ request, params }) {
   const formData = await request.formData();
   const { flightId } = Object.fromEntries(formData);
-  console.log(flightId);
+
+  if(!window.confirm("Are you sure?")) {
+    return redirect(`/flights/${flightId}`);
+  }
 
   const graphqlQuery = {
     query: `

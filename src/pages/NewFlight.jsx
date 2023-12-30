@@ -24,7 +24,13 @@ export async function action({ request, params }) {
   const graphqlQuery = {
     query: `
       mutation {
-        createFlight(input: { airport: "${airport}", flightNumber: "${flightNumber}", scheduleTime: "${scheduleTime}", avioCompany: "${avioCompany}", terminal: "${terminal}", status: "${status}", type: "${type}" }) {
+        createFlight(input: { airport: "${airport}",
+         flightNumber: "${flightNumber}",
+         scheduleTime: "${scheduleTime}",
+         avioCompany: "${avioCompany}",
+         terminal: "${terminal}",
+         status: "${status}",
+         type: "${type}" }) {
           _id
         }
       }

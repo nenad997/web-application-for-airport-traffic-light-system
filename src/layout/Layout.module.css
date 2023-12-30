@@ -31,6 +31,9 @@
     border-radius: 5px;
     background-color: rgb(106, 205, 238);
     color: white;
+    box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
 
     &:hover {
       background-color: rgb(138, 208, 231);

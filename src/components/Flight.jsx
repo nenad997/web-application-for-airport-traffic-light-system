@@ -13,7 +13,7 @@ const Flight = ({
   id,
 }) => {
   return (
-    <Link className={classes.link} to={`/flights/${id}`}>
+    <Link className={classes.link} to={`/flights/${id}`} title="Click Me">
       <div className={classes.container}>
         <span>{departureAirport}</span>
         <span>{flightNumber}</span>
