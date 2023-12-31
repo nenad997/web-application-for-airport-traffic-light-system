@@ -19,20 +19,14 @@ const CustomForm = ({ type, method, flight }) => {
   let buttonStyles;
 
   if (type === "submit") {
-    buttonText = "Submit";
-    if (isSubmitting) {
-      buttonText = "Submitting...";
-    }
+    buttonText = isSubmitting ? "Submitting..." : "Submit";
     buttonStyles = {
       backgroundColor: "blue",
     };
   }
 
   if (type === "edit") {
-    buttonText = "Edit";
-    if (isSubmitting) {
-      buttonText = "Editing...";
-    }
+    buttonText = isSubmitting ? "Editing..." : "Edit";
     buttonStyles = {
       backgroundColor: "yellow",
       color: "black",

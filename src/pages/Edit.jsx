@@ -86,7 +86,7 @@ export async function action({ request, params }) {
       mutation {
         updateFlight(flightId: "${flightId}", input: { 
           airport: "${airport}",
-          flightNumber: "${flightNumber}",
+          flightNumber: "${flightNumber.toUpperCase()}",
           scheduleTime: "${scheduleTime}",
           avioCompany: "${avioCompany}",
           terminal: "${terminal}",
