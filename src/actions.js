@@ -1,10 +1,14 @@
 import { redirect } from "react-router-dom";
 
+import { getToken } from "./authentication";
+
 export async function deleteFlightAction({ request, params }) {
   const formData = await request.formData();
   const { flightId } = Object.fromEntries(formData);
 
-  if(!window.confirm("Are you sure?")) {
+  const token = getToken();
+
+  if (!window.confirm("Are you sure?")) {
     return redirect(`/flights/${flightId}`);
   }
 
@@ -22,13 +26,25 @@ export async function deleteFlightAction({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
 
   if (!response.ok) {
-    throw new Error("Deletetion failed!");
+    // return json({ message: "Deletion failed!" }, { status: 422 });
+    return redirect(`/flights/${flightId}`);
   }
 
   return redirect("/flights");
+}
+
+export async function logoutAction() {
+  const token = getToken();
+
+  if (token) {
+    localStorage.removeItem("authToken");
+  }
+
+  return redirect("/login");
 }

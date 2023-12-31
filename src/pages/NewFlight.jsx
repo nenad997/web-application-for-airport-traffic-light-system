@@ -1,6 +1,7 @@
 import React from "react";
 import { json, redirect } from "react-router-dom";
 
+import { getToken } from "../authentication";
 import FlightForm from "../components/FlightForm";
 
 const NewFlight = () => {
@@ -10,6 +11,8 @@ const NewFlight = () => {
 export default NewFlight;
 
 export async function action({ request, params }) {
+  const token = getToken();
+
   const formData = await request.formData();
   const {
     airport,
@@ -41,6 +44,7 @@ export async function action({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
@@ -57,4 +61,13 @@ export async function action({ request, params }) {
     return redirect("/flights");
   }
   return redirect("/flights/departures");
+}
+
+export async function loader() {
+  const token = getToken();
+
+  if(!token) {
+    return redirect("/login");
+  }
+  return null;
 }

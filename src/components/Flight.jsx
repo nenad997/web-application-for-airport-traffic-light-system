@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
+import { getToken } from "../authentication";
 import classes from "./Flight.module.css";
 
 const Flight = ({
@@ -12,8 +13,18 @@ const Flight = ({
   status,
   id,
 }) => {
+  const { pathname: currentPath } = useLocation();
+
+  const token = getToken();
+
+  let href = currentPath;
+
+  if (token) {
+    href = `/flights/${id}`;
+  }
+
   return (
-    <Link className={classes.link} to={`/flights/${id}`} title="Click Me">
+    <Link className={classes.link} to={href} title={token ? "Click Me" : ""}>
       <div className={classes.container}>
         <span>{departureAirport}</span>
         <span>{flightNumber}</span>

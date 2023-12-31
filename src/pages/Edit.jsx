@@ -7,6 +7,7 @@ import {
   redirect,
 } from "react-router-dom";
 
+import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
 import CustomForm from "../components/UI/CustomForm";
 import classes from "./Page.module.css";
@@ -31,6 +32,12 @@ const Edit = () => {
 export default Edit;
 
 export async function loader({ request, params }) {
+  const token = getToken();
+
+  if(!token) {
+    return redirect("/login");
+  }
+
   const { flightId } = params;
 
   const graphqlQuery = {
@@ -70,6 +77,8 @@ export async function loader({ request, params }) {
 export async function action({ request, params }) {
   const { flightId } = params;
 
+  const token = getToken();
+
   const formData = await request.formData();
   const {
     airport,
@@ -103,6 +112,7 @@ export async function action({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });

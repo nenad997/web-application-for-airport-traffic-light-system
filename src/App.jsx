@@ -6,13 +6,16 @@ import FlightsLayout, { loader as flightsLoader } from "./layout/FlightsLayout";
 import Home from "./pages/Home";
 import Arrival from "./pages/Arrival";
 import Departure from "./pages/Departure";
-import NewFlight, { action as addFlightAction } from "./pages/NewFlight";
+import NewFlight, {
+  action as addFlightAction,
+  loader as newFlightLoader,
+} from "./pages/NewFlight";
 import Edit, {
   loader as flightLoader,
   action as editFlightAction,
 } from "./pages/Edit";
 import Login, { action as loginAction } from "./pages/Login";
-import { deleteFlightAction } from "./actions";
+import { deleteFlightAction, logoutAction } from "./actions";
 
 const router = createBrowserRouter([
   {
@@ -46,8 +49,10 @@ const router = createBrowserRouter([
         path: "add-new-flight",
         element: <NewFlight />,
         action: addFlightAction,
+        loader: newFlightLoader,
       },
       { path: "delete-flight", action: deleteFlightAction },
+      { path: "logout", action: logoutAction },
     ],
   },
   { path: "/login", element: <Login />, action: loginAction },

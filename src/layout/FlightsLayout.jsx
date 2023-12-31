@@ -2,13 +2,17 @@ import React from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { Outlet, Link, useLocation } from "react-router-dom";
 
+import { getToken } from "../authentication";
 import FlightsNavigation from "../components/FlightsNavigation";
 import classes from "./Layout.module.css";
 
 const FlightsLayout = () => {
   const { pathname } = useLocation();
 
-  let condition = pathname === "/flights" || pathname === "/flights/departures";
+  const token = getToken();
+
+  let condition =
+    (pathname === "/flights" || pathname === "/flights/departures") && token;
 
   return (
     <>
