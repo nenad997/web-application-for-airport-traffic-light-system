@@ -11,7 +11,7 @@ import Edit, {
   loader as flightLoader,
   action as editFlightAction,
 } from "./pages/Edit";
-import Login from "./pages/Login";
+import Login, { action as loginAction } from "./pages/Login";
 import { deleteFlightAction } from "./actions";
 
 const router = createBrowserRouter([
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       { path: "delete-flight", action: deleteFlightAction },
     ],
   },
-  { path: "/login", element: <Login /> },
+  { path: "/login", element: <Login />, action: loginAction },
 ]);
 
 const App = () => {

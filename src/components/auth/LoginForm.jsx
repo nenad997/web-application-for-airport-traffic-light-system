@@ -6,7 +6,7 @@ import classes from "./LoginForm.module.css";
 const LoginForm = () => {
   return (
     <div className={classes.wrapper}>
-      <Form className={classes.form}>
+      <Form className={classes.form} method="POST">
         <div className={classes.control}>
           <label htmlFor="email">Email address</label>
           <input
