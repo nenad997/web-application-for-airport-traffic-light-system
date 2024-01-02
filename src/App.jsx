@@ -14,7 +14,12 @@ import Edit, {
   loader as flightLoader,
   action as editFlightAction,
 } from "./pages/Edit";
-import Login, { action as loginAction } from "./pages/Login";
+import PracticalGuide from "./pages/PracticalGuide";
+import PracticalGuideModal from "./pages/PracticalGuideModal";
+import Login, {
+  action as loginAction,
+  loader as loginLoader,
+} from "./pages/Login";
 import { deleteFlightAction, logoutAction } from "./actions";
 
 const router = createBrowserRouter([
@@ -39,7 +44,20 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "practical-guide", element: <div>Practical Guide</div> },
+      {
+        path: "practical-guide",
+        children: [
+          { index: true, element: <PracticalGuide /> },
+          { path: "modal", element: <PracticalGuideModal /> },
+        ],
+      },
+      // {
+      //   path: "practical-guide",
+      //   element: <div>Practical Guide</div>,
+      //   children: [
+      //     { path: "modal", element: <div>Practical guide modal</div> },
+      //   ],
+      // },
       { path: "services-and-sales", element: <div>Services And Sales</div> },
       {
         path: "parking-and-approach",
@@ -55,7 +73,12 @@ const router = createBrowserRouter([
       { path: "logout", action: logoutAction },
     ],
   },
-  { path: "/login", element: <Login />, action: loginAction },
+  {
+    path: "/login",
+    element: <Login />,
+    action: loginAction,
+    loader: loginLoader,
+  },
 ]);
 
 const App = () => {

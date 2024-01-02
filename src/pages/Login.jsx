@@ -1,6 +1,7 @@
 import React from "react";
 import { redirect, json } from "react-router-dom";
 
+import { getToken } from "../authentication";
 import LoginForm from "../components/auth/LoginForm";
 
 const Login = () => {
@@ -33,6 +34,10 @@ export async function action({ request, params }) {
     body: JSON.stringify(graphqlQuery),
   });
 
+  if(!response.ok) {
+    return redirect("/login");
+  }
+
   const responseData = await response.json();
 
   const { _id, username, token } = responseData.data.login;
@@ -40,4 +45,13 @@ export async function action({ request, params }) {
   localStorage.setItem("authToken", token);
 
   return redirect("/");
+}
+
+export async function loader () {
+  const token = getToken();
+
+  if(token) {
+    return redirect("/");
+  }
+  return null;
 }
