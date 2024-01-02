@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Link, useNavigation } from "react-router-dom";
 
 import {
@@ -82,8 +82,9 @@ const CustomForm = ({ type, method, flight }) => {
           {avioCompaniesData.map(({ avioCompany, country }) => {
             return avioCompany.map((company, index) => (
               <option key={index} value={company}>
-                {company} ({country.charAt(0).toUpperCase()}
-                {country.charAt(1).toUpperCase()})
+                {company} {`(${country})`}
+                {/* ({country.charAt(0).toUpperCase()}
+                {country.charAt(1).toUpperCase()}) */}
               </option>
             ));
           })}

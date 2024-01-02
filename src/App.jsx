@@ -20,12 +20,14 @@ import Login, {
   action as loginAction,
   loader as loginLoader,
 } from "./pages/Login";
+import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./actions";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
       {
