@@ -1,6 +1,6 @@
 import React from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, defer } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import FlightsNavigation from "../components/FlightsNavigation";
@@ -73,7 +73,9 @@ export async function loader() {
     if (!responseData.data) {
       return [];
     }
-    return responseData.data.getFlights;
+    return defer({
+      flights: await responseData.data.getFlights,
+    });
   } catch (err) {
     console.log(err);
   }
