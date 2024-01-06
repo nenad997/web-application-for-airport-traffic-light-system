@@ -8,8 +8,9 @@ const Container = ({ type }) => {
       <span>{type}</span>
       <span>Flight Number</span>
       <span>Schedule Time</span>
+      <span>Date</span>
       <span>Avio Company</span>
-      <span>Exit Terminal</span>
+      <span>Terminal</span>
       <span>Status</span>
     </div>
   );

@@ -6,7 +6,15 @@ export async function deleteFlightAction({ request, params }) {
   const formData = await request.formData();
   const { flightId } = Object.fromEntries(formData);
 
+  const id = formData.get("flightId");
+
+  console.log(id);
+
   const token = getToken();
+
+  if(!token) {
+    return redirect("/login");
+  }
 
   if (!window.confirm("Are you sure?")) {
     return redirect(`/flights/${flightId}`);
@@ -17,6 +25,8 @@ export async function deleteFlightAction({ request, params }) {
         mutation {
           deleteFlight(flightId: "${flightId.toString()}") {
             _id
+            createdAt
+            type
           }
         }
       `,
@@ -32,11 +42,12 @@ export async function deleteFlightAction({ request, params }) {
   });
 
   if (!response.ok) {
-    // return json({ message: "Deletion failed!" }, { status: 422 });
     return redirect(`/flights/${flightId}`);
   }
 
-  return redirect("/flights");
+  await response.json();
+
+  return redirect(`/flights?day=${new Date().toISOString()}`);
 }
 
 export async function logoutAction() {

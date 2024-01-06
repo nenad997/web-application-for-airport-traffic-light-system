@@ -34,7 +34,7 @@ export default Edit;
 export async function loader({ request, params }) {
   const token = getToken();
 
-  if(!token) {
+  if (!token) {
     return redirect("/login");
   }
 
@@ -52,6 +52,8 @@ export async function loader({ request, params }) {
           terminal
           status
           type
+          createdAt
+          updatedAt
         }
       }
     `,
@@ -61,6 +63,7 @@ export async function loader({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
@@ -78,6 +81,10 @@ export async function action({ request, params }) {
   const { flightId } = params;
 
   const token = getToken();
+
+  if (!token) {
+    return redirect("/login");
+  }
 
   const formData = await request.formData();
   const {
@@ -103,6 +110,7 @@ export async function action({ request, params }) {
           type: "${type}" 
         }) {
           _id
+          createdAt
         }
       }
     `,
@@ -112,21 +120,28 @@ export async function action({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
+
+  console.log(response);
 
   if (!response.ok) {
     return json({ message: "Could not update a flight" }, { status: 422 });
   }
 
-  await response.json();
+  const responseData = await response.json();
+
+  const { createdAt } = responseData.data.updateFlight;
+
+  const dateQueryParam = createdAt.split("T")[0];
 
   let pathName;
 
-  if (type === "arrival") pathName = "/flights";
-  if (type === "departure") pathName = "/flights/departures";
+  if (type === "arrival") pathName = `/flights?day=${dateQueryParam}`;
+  if (type === "departure")
+    pathName = `/flights/departures?day=${dateQueryParam}`;
 
   return redirect(pathName);
 }

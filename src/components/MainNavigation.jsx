@@ -7,7 +7,7 @@ import classes from "./MainNavigation.module.css";
 const MainNavigation = () => {
   return (
     <header className={classes.header}>
-      <div>
+      <div className={classes.header__heading}>
         <p>
           <MdOutlineLocalAirport />
           <span>
@@ -25,7 +25,7 @@ const MainNavigation = () => {
           <MdOutlineLocalAirport />
         </h2>
       </div>
-      <nav>
+      <nav className={classes.header__nav}>
         <ul>
           <li>
             <NavLink
@@ -40,7 +40,7 @@ const MainNavigation = () => {
           </li>
           <li>
             <NavLink
-              to="flights"
+              to={`flights?day=${new Date().toISOString()}`}
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
@@ -56,16 +56,6 @@ const MainNavigation = () => {
               }
             >
               Practical Guide
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="services-and-sales"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Services & Sales
             </NavLink>
           </li>
           <li>

@@ -34,8 +34,8 @@ export async function action({ request, params }) {
     body: JSON.stringify(graphqlQuery),
   });
 
-  if(!response.ok) {
-    return redirect("/login");
+  if (!response.ok) {
+    return response;
   }
 
   const responseData = await response.json();
@@ -47,10 +47,10 @@ export async function action({ request, params }) {
   return redirect("/");
 }
 
-export async function loader () {
+export async function loader() {
   const token = getToken();
 
-  if(token) {
+  if (token) {
     return redirect("/");
   }
   return null;

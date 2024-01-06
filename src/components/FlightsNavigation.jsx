@@ -10,7 +10,7 @@ const FlightsNavigation = () => {
       <ul>
         <li>
           <NavLink
-            to="/flights"
+            to={`/flights?day=${new Date().toISOString()}`}
             className={({ isActive }) =>
               isActive ? classes.active : undefined
             }
@@ -22,7 +22,7 @@ const FlightsNavigation = () => {
         </li>
         <li>
           <NavLink
-            to="departures"
+            to={`departures?day=${new Date().toISOString()}`}
             className={({ isActive }) =>
               isActive ? classes.active : undefined
             }

@@ -2,10 +2,15 @@ import React from "react";
 import { json, redirect } from "react-router-dom";
 
 import { getToken } from "../authentication";
+import Layout from "../components/UI/Layout";
 import FlightForm from "../components/FlightForm";
 
 const NewFlight = () => {
-  return <FlightForm />;
+  return (
+    <Layout marginTop={"2rem"} marginBottom={"5rem"}>
+      <FlightForm />
+    </Layout>
+  );
 };
 
 export default NewFlight;
@@ -44,7 +49,7 @@ export async function action({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
@@ -58,15 +63,15 @@ export async function action({ request, params }) {
   console.log(responseData);
 
   if (type === "arrival") {
-    return redirect("/flights");
+    return redirect(`/flights?day=${new Date().toISOString()}`);
   }
-  return redirect("/flights/departures");
+  return redirect(`/flights/departures?day=${new Date().toISOString()}`);
 }
 
 export async function loader() {
   const token = getToken();
 
-  if(!token) {
+  if (!token) {
     return redirect("/login");
   }
   return null;

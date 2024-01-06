@@ -1,9 +1,11 @@
 import React from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
 
 import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
+  const data = useActionData();
+
   return (
     <div className={classes.wrapper}>
       <Form className={classes.form} method="POST">
@@ -25,6 +27,9 @@ const LoginForm = () => {
             id="password"
             name="password"
           />
+          {data?.errors && (
+            <p className={classes.invalid}>{data?.errors[0]?.message}</p>
+          )}
         </div>
         <div className={classes.actions}>
           <Link to="/">

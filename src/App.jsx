@@ -14,8 +14,6 @@ import Edit, {
   loader as flightLoader,
   action as editFlightAction,
 } from "./pages/Edit";
-import PracticalGuide from "./pages/PracticalGuide";
-import PracticalGuideModal from "./pages/PracticalGuideModal";
 import Login, {
   action as loginAction,
   loader as loginLoader,
@@ -44,32 +42,18 @@ const router = createBrowserRouter([
             loader: flightLoader,
             action: editFlightAction,
           },
+          {
+            path: "add-new-flight",
+            element: <NewFlight />,
+            action: addFlightAction,
+            loader: newFlightLoader,
+          },
         ],
       },
-      {
-        path: "practical-guide",
-        children: [
-          { index: true, element: <PracticalGuide /> },
-          { path: "modal", element: <PracticalGuideModal /> },
-        ],
-      },
-      // {
-      //   path: "practical-guide",
-      //   element: <div>Practical Guide</div>,
-      //   children: [
-      //     { path: "modal", element: <div>Practical guide modal</div> },
-      //   ],
-      // },
-      { path: "services-and-sales", element: <div>Services And Sales</div> },
+      { path: "practical-guide", element: <div>Practical Guide</div> },
       {
         path: "parking-and-approach",
         element: <div>Parking And Approach</div>,
-      },
-      {
-        path: "add-new-flight",
-        element: <NewFlight />,
-        action: addFlightAction,
-        loader: newFlightLoader,
       },
       { path: "delete-flight", action: deleteFlightAction },
       { path: "logout", action: logoutAction },

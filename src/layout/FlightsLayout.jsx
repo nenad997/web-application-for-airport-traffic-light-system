@@ -14,6 +14,14 @@ const FlightsLayout = () => {
   let condition =
     (pathname === "/flights" || pathname === "/flights/departures") && token;
 
+  var date = new Date();
+  
+  const today = date.toISOString();
+
+  date.setDate(date.getDate() - 1);
+
+  const yesterday = date.toISOString();
+
   return (
     <>
       <FlightsNavigation />
@@ -27,10 +35,23 @@ const FlightsLayout = () => {
           </h4>
         </div>
       )}
+      <div className={classes.pagination}>
+        <ul>
+          <li>
+            <Link to={`?day=${yesterday}`}>Yesterday</Link>
+          </li>
+          <li>
+            <Link to={`?day=${today}`}>Today</Link>
+          </li>
+          <li>
+            <Link to={`?day=${true}`}>All Flights</Link>
+          </li>
+        </ul>
+      </div>
       <Outlet />
       {condition && (
         <div className={classes["btn-wrapper"]}>
-          <Link to="/add-new-flight">
+          <Link to="add-new-flight">
             <button title="Add a New Flight">New Flight</button>
           </Link>
         </div>
@@ -54,6 +75,8 @@ export async function loader() {
         terminal
         status
         type
+        createdAt
+        updatedAt
       }
     }
     `,

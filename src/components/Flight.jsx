@@ -11,6 +11,7 @@ const Flight = ({
   avioCompany,
   exitTerminal,
   status,
+  scheduleDate,
   id,
 }) => {
   const { pathname: currentPath } = useLocation();
@@ -23,12 +24,15 @@ const Flight = ({
     href = `/flights/${id}`;
   }
 
+  const humanReadableDate = scheduleDate.split("T")[0];
+
   return (
     <Link className={classes.link} to={href} title={token ? "Click Me" : ""}>
       <div className={classes.container}>
         <span>{departureAirport}</span>
         <span>{flightNumber}</span>
         <span>{scheduleTime}</span>
+        <span>{humanReadableDate}</span>
         <span>{avioCompany}</span>
         <span>{exitTerminal}</span>
         <span>{status}</span>

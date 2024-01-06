@@ -1,5 +1,4 @@
 .header {
-  padding: 5px 15px;
   display: flex;
   flex-direction: column;
   max-width: 100%;
@@ -11,98 +10,100 @@
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+}
 
-  & div {
+.header__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  padding-bottom: 0;
+  max-width: 100%;
+  background-color: wheat;
+
+  & p {
+    font-size: 60px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    padding: 10px 20px;
-    padding-bottom: 0;
-    max-width: 100%;
+    align-content: center;
+    gap: 15px;
 
-    & p {
-      font-size: 60px;
-      display: flex;
-      align-items: center;
-      align-content: center;
-      gap: 15px;
+    & span {
+      font-size: inherit;
+      border-radius: 5px;
 
-      & span {
-        font-size: inherit;
-        border-radius: 5px;
-
-        & span:nth-child(1) {
-          color: red;
-        }
-
-        & span:nth-child(2) {
-          color: blue;
-        }
-
-        & span:nth-child(3) {
-          color: white;
-        }
-      }
-    }
-
-    & h2 {
-      font-size: 60px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-
-      & span {
-        font-size: inherit;
+      & span:nth-child(1) {
         color: red;
+      }
 
-        & span:nth-child(1) {
-          color: red;
-        }
+      & span:nth-child(2) {
+        color: blue;
+      }
 
-        & span:nth-child(2) {
-          color: blue;
-        }
-
-        & span:nth-child(3) {
-          color: white;
-        }
+      & span:nth-child(3) {
+        color: white;
       }
     }
   }
 
-  & nav {
+  & h2 {
+    font-size: 60px;
     display: flex;
-    margin: auto;
-    margin-top: 20px;
-    max-width: 100%;
+    align-items: center;
+    gap: 15px;
 
-    & ul {
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      max-width: 100%;
-      padding: 10px 35px;
-    }
+    & span {
+      font-size: inherit;
+      color: red;
 
-    & li {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 20px 30px;
+      & span:nth-child(1) {
+        color: red;
+      }
 
-      & a {
-        text-decoration: none;
-        font-size: 25px;
-        letter-spacing: 1px;
+      & span:nth-child(2) {
         color: blue;
-        letter-spacing: 1px;
-        font-style: italic;
-        transition: all 0.2s ease-in-out;
+      }
 
-        &.active {
-          color: rgb(124, 124, 16);
-        }
+      & span:nth-child(3) {
+        color: white;
+      }
+    }
+  }
+}
+
+.header__nav {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  background-color: white;
+
+  & ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px 35px;
+  }
+
+  & li {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 30px;
+
+    & a {
+      text-decoration: none;
+      font-size: 25px;
+      letter-spacing: 1px;
+      color: blue;
+      letter-spacing: 1px;
+      transition: all 0.2s ease-in-out;
+
+      &.active {
+        color: rgb(124, 124, 16);
       }
     }
   }

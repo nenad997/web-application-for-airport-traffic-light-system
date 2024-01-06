@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Link, useNavigation } from "react-router-dom";
 
 import {
@@ -79,12 +79,10 @@ const CustomForm = ({ type, method, flight }) => {
           id="avio-company"
           defaultValue={flight ? flight.avioCompany : null}
         >
-          {avioCompaniesData.map(({ avioCompany, country }) => {
-            return avioCompany.map((company, index) => (
+          {avioCompaniesData.map(({ avioCompany: avioCompanies, country }) => {
+            return avioCompanies.map((company, index) => (
               <option key={index} value={company}>
                 {company} {`(${country})`}
-                {/* ({country.charAt(0).toUpperCase()}
-                {country.charAt(1).toUpperCase()}) */}
               </option>
             ));
           })}
@@ -130,7 +128,7 @@ const CustomForm = ({ type, method, flight }) => {
         </select>
       </div>
       <div className={classes.actions}>
-        <Link to="/flights">
+        <Link to={`/flights?day=${new Date().toISOString()}`}>
           <button type="button">Cancel</button>
         </Link>
         <button type="submit" style={buttonStyles}>
