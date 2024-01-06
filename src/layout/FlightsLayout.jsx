@@ -4,6 +4,7 @@ import { Outlet, Link, useLocation, defer } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import FlightsNavigation from "../components/FlightsNavigation";
+import Pagination from "../components/Pagination";
 import classes from "./Layout.module.css";
 
 const FlightsLayout = () => {
@@ -13,14 +14,6 @@ const FlightsLayout = () => {
 
   let condition =
     (pathname === "/flights" || pathname === "/flights/departures") && token;
-
-  var date = new Date();
-  
-  const today = date.toISOString();
-
-  date.setDate(date.getDate() - 1);
-
-  const yesterday = date.toISOString();
 
   return (
     <>
@@ -35,19 +28,7 @@ const FlightsLayout = () => {
           </h4>
         </div>
       )}
-      <div className={classes.pagination}>
-        <ul>
-          <li>
-            <Link to={`?day=${yesterday}`}>Yesterday</Link>
-          </li>
-          <li>
-            <Link to={`?day=${today}`}>Today</Link>
-          </li>
-          <li>
-            <Link to={`?day=${true}`}>All Flights</Link>
-          </li>
-        </ul>
-      </div>
+      <Pagination />
       <Outlet />
       {condition && (
         <div className={classes["btn-wrapper"]}>

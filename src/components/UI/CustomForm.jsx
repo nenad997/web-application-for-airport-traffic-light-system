@@ -128,7 +128,7 @@ const CustomForm = ({ type, method, flight }) => {
         </select>
       </div>
       <div className={classes.actions}>
-        <Link to={`/flights?day=${new Date().toISOString()}`}>
+        <Link to={`/flights?day=${new Date().toISOString().split("T")[0]}`}>
           <button type="button">Cancel</button>
         </Link>
         <button type="submit" style={buttonStyles}>

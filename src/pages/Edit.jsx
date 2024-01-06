@@ -125,8 +125,6 @@ export async function action({ request, params }) {
     body: JSON.stringify(graphqlQuery),
   });
 
-  console.log(response);
-
   if (!response.ok) {
     return json({ message: "Could not update a flight" }, { status: 422 });
   }

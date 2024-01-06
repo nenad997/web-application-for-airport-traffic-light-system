@@ -19,7 +19,7 @@ const ArrivalsContainer = () => {
             loadedFlights
               .filter(
                 dateQueryParam.startsWith("2") &&
-                  dateQueryParam.toString() !== "true"
+                  dateQueryParam.toString() !== "all"
                   ? (item) =>
                       item.createdAt.split("T")[0].toString() ===
                         dateQueryParam.toString() && item.type === "arrival"

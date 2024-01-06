@@ -40,7 +40,7 @@ const MainNavigation = () => {
           </li>
           <li>
             <NavLink
-              to={`flights?day=${new Date().toISOString()}`}
+              to={`flights?day=${new Date().toISOString().split("T")[0]}`}
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }

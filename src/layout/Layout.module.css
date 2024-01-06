@@ -73,33 +73,3 @@
   border-radius: 50%;
   cursor: pointer;
 }
-
-.pagination {
-  width: 30%;
-  margin: auto;
-  margin-top: 2rem;
-  text-align: center;
-  
-  & ul {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    
-    & li {
-      border: 1px solid black;
-      flex: 1;
-      padding: 5px;
-      background-color: rgb(230, 200, 156);
-
-      & a {
-        display: block;
-        text-decoration: none;
-        color: black;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-    }
-  }
-}

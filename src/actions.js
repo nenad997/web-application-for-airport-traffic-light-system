@@ -6,10 +6,6 @@ export async function deleteFlightAction({ request, params }) {
   const formData = await request.formData();
   const { flightId } = Object.fromEntries(formData);
 
-  const id = formData.get("flightId");
-
-  console.log(id);
-
   const token = getToken();
 
   if(!token) {

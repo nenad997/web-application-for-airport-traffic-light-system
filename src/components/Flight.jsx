@@ -14,11 +14,21 @@ const Flight = ({
   scheduleDate,
   id,
 }) => {
-  const { pathname: currentPath } = useLocation();
-
+  const { pathname: currentPath, search } = useLocation();
+  
   const token = getToken();
 
-  let href = currentPath;
+  var date = new Date();
+
+  date.setDate(date.getDate() - 1);
+
+  const previousDay = date.toISOString();
+
+  let href = `${currentPath}?index&day=${search.split("=")[1].split("T")[0]}`;
+
+  if (currentPath === `/flights?day=${previousDay}` && !token) {
+    href = `/flights?day=${previousDay}`;
+  }
 
   if (token) {
     href = `/flights/${id}`;

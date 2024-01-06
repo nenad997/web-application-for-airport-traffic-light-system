@@ -58,9 +58,7 @@ export async function action({ request, params }) {
     return json({ message: "Invalid input" }, { status: 422 });
   }
 
-  const responseData = await response.json();
-
-  console.log(responseData);
+  await response.json();
 
   if (type === "arrival") {
     return redirect(`/flights?day=${new Date().toISOString()}`);
