@@ -15,7 +15,7 @@ const Flight = ({
   id,
 }) => {
   const { pathname: currentPath, search } = useLocation();
-  
+
   const token = getToken();
 
   var date = new Date();
@@ -34,7 +34,12 @@ const Flight = ({
     href = `/flights/${id}`;
   }
 
-  const humanReadableDate = scheduleDate.split("T")[0];
+  const humanReadableDate = new Date(scheduleDate).toLocaleDateString("en-us", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   return (
     <Link className={classes.link} to={href} title={token ? "Click Me" : ""}>

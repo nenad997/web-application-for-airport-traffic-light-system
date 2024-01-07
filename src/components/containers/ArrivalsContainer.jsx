@@ -12,7 +12,7 @@ const ArrivalsContainer = () => {
 
   return (
     <>
-      <Container type="Arrival Airport" />
+      <Container type="Arrival" />
       <Suspense fallback={<p>Loading flights...</p>}>
         <Await resolve={flights}>
           {(loadedFlights) =>
