@@ -73,11 +73,13 @@ const App = () => {
   const expirationTime = +localStorage.getItem("expirationTime");
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (token) {
         localStorage.removeItem("authToken");
       }
     }, expirationTime);
+
+    return () => clearTimeout(timer);
   }, [token, expirationTime]);
 
   return <RouterProvider router={router} />;
