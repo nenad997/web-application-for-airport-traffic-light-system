@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "./layout/RootLayout";
@@ -20,6 +20,7 @@ import Login, {
 } from "./pages/Login";
 import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./actions";
+import { getToken } from "./authentication";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,17 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const token = getToken();
+  const expirationTime = +localStorage.getItem("expirationTime");
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (token) {
+        localStorage.removeItem("authToken");
+      }
+    }, expirationTime);
+  }, [token, expirationTime]);
+
   return <RouterProvider router={router} />;
 };
 

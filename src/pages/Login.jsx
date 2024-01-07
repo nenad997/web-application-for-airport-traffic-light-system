@@ -44,6 +44,10 @@ export async function action({ request, params }) {
 
   localStorage.setItem("authToken", token);
 
+  const expirationTime = 5 * 60 * 60 * 1000;
+
+  localStorage.setItem("expirationTime", expirationTime);
+
   return redirect("/");
 }
 

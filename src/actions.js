@@ -51,6 +51,7 @@ export async function logoutAction() {
 
   if (token) {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("expirationTime");
   }
 
   return redirect("/login");
