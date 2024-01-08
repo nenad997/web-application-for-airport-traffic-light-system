@@ -21,7 +21,7 @@
   margin-top: 5rem;
   margin-bottom: 5rem;
 
-  & button {
+  & a button {
     width: 100%;
     padding: 10px 15px;
     font-size: 25px;
@@ -72,4 +72,24 @@
   min-height: 70px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .text-wrapper {
+    margin-top: 1.6rem;
+
+    & h4 {
+      font-size: 20px;
+    }
+  }
+
+  .btn-wrapper {
+    max-width: 40%;
+    margin-top: 2rem;
+
+    & button {
+      padding: 5px;
+      border-radius: 0;
+    }
+  }
 }

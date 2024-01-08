@@ -44,7 +44,7 @@
         color: rgb(117, 113, 113);
         padding: 5px 15px;
         letter-spacing: 1px;
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
         clear: both;
         overflow: hidden;
         border: none;
@@ -57,6 +57,32 @@
           box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
           -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
           -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .nav {
+    max-width: 100%;
+
+    & ul {
+      & li:first-child {
+        border: 0;
+      }
+
+      & li:last-child {
+        border: 0;
+      }
+
+      & li {
+        & a:first-child {
+          border-bottom-left-radius: 0;
+        }
+
+        & a:last-child {
+          border-bottom-right-radius: 0;
         }
       }
     }

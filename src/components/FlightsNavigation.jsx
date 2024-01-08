@@ -8,7 +8,7 @@ const FlightsNavigation = () => {
   return (
     <nav className={classes.nav}>
       <ul>
-        <li>
+        <li className={classes["responsive-link"]}>
           <NavLink
             to={`/flights?day=${new Date().toISOString().split("T")[0]}`}
             className={({ isActive }) =>
@@ -20,7 +20,7 @@ const FlightsNavigation = () => {
             Arrivals
           </NavLink>
         </li>
-        <li>
+        <li className={classes["responsive-link"]}>
           <NavLink
             to={`departures?day=${new Date().toISOString().split("T")[0]}`}
             className={({ isActive }) =>

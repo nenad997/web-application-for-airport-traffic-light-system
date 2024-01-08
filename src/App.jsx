@@ -74,8 +74,9 @@ const App = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (token) {
+      if (token && expirationTime) {
         localStorage.removeItem("authToken");
+        localStorage.removeItem("expirationTime");
       }
     }, expirationTime);
 
