@@ -69,3 +69,22 @@
   margin-top: .5rem;
   letter-spacing: 1px;
 }
+
+@media screen and (max-width: 1000px) {
+  .form {
+    margin: 15rem 15px 15px 15px;
+  }
+
+  .control {
+    padding: 5px 15px;
+
+    & input {
+      padding: 7px;
+    }
+  }
+
+  .actions {
+    padding: 5px 15px;
+    margin-top: 10px;
+  }
+}

@@ -92,4 +92,9 @@
       border-radius: 0;
     }
   }
+
+  .login {
+    bottom: .3rem;
+    right: .5rem;
+  }
 }
