@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Link, useNavigation } from "react-router-dom";
+import React, { useState } from "react";
+import { Form, useNavigation, Link } from "react-router-dom";
 
 import {
   cities,
@@ -12,6 +12,7 @@ import classes from "./CustomForm.module.css";
 
 const CustomForm = ({ type, method, flight, errors }) => {
   const navigation = useNavigation();
+  const [flightType, setFlightType] = useState("Arrival");
 
   const isSubmitting = navigation.state === "submitting";
 
@@ -33,6 +34,16 @@ const CustomForm = ({ type, method, flight, errors }) => {
     };
   }
 
+  const changeFlightTypeHandler = (event) => {
+    setFlightType(event.target.value);
+  };
+
+  let defaultAirport = "Vienna";
+
+  if (flightType === "Arrival") {
+    defaultAirport = "Belgrade";
+  }
+
   return (
     <Form className={classes.form} method={method}>
       <div className={classes.control}>
@@ -40,7 +51,7 @@ const CustomForm = ({ type, method, flight, errors }) => {
         <select
           name="airport"
           id="airport"
-          defaultValue={flight ? flight.airport : null}
+          defaultValue={flight ? flight.airport : defaultAirport}
         >
           {cities.sort().map((item, index) => (
             <option key={index} value={item.city}>
@@ -127,7 +138,8 @@ const CustomForm = ({ type, method, flight, errors }) => {
         <select
           name="type"
           id="type"
-          defaultValue={flight ? flight.type : null}
+          onChange={changeFlightTypeHandler}
+          value={flight ? flight.type : flightType}
         >
           <option value="arrival">Arrival</option>
           <option value="departure">Departure</option>
