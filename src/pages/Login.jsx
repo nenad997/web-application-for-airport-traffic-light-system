@@ -51,7 +51,7 @@ export async function action({ request, params }) {
     );
     const passwordError = errors[passwordErrorIndex];
     let newError;
-    if (passwordErrorIndex > 0) {
+    if (passwordErrorIndex >= 0) {
       newError = { ...passwordError, message: "Incorrect password" };
       errors[passwordErrorIndex] = newError;
     } else {
