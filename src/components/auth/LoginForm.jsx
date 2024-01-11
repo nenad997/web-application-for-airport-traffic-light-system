@@ -54,6 +54,9 @@ const LoginForm = () => {
           </Link>
           <button type="submit">Log In</button>
         </div>
+        <div className={classes.reset}>
+          <Link to="reset-password">Forgot Password?</Link>
+        </div>
       </Form>
     </div>
   );

@@ -64,6 +64,16 @@
   }
 }
 
+.reset {
+  padding: 10px 20px;
+
+  & a {
+    color: white;
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+}
+
 .invalid {
   color: red;
   font-size: 15px;
