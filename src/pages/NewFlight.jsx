@@ -49,7 +49,7 @@ export async function action({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
@@ -61,9 +61,11 @@ export async function action({ request, params }) {
   await response.json();
 
   if (type === "arrival") {
-    return redirect(`/flights?day=${new Date().toISOString()}`);
+    return redirect(`/flights?day=${new Date().toISOString().split("T")[0]}`);
   }
-  return redirect(`/flights/departures?day=${new Date().toISOString()}`);
+  return redirect(
+    `/flights/departures?day=${new Date().toISOString().split("T")[0]}`
+  );
 }
 
 export async function loader() {

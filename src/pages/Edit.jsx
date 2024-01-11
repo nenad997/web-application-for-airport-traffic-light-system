@@ -63,7 +63,7 @@ export async function loader({ request, params }) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(graphqlQuery),
   });
@@ -133,13 +133,44 @@ export async function action({ request, params }) {
 
   const { createdAt } = responseData.data.updateFlight;
 
+  let day;
+
+  var date = new Date();
+
+  date.setDate(date.getDate() - 1);
+
+  const previousDayParam = date.toISOString().split("T")[0];
+
   const dateQueryParam = createdAt.split("T")[0];
+
+  const splitsObject = {
+    dateQuery: +dateQueryParam.split("-")[2],
+    previousDay: +previousDayParam.split("-")[2],
+  };
+
+  switch (true) {
+    case dateQueryParam === new Date().toISOString().split("T")[0]: {
+      day = new Date().toISOString().split("T")[0];
+      break;
+    }
+    case splitsObject.previousDay === splitsObject.dateQuery: {
+      day = previousDayParam;
+      break;
+    }
+    case splitsObject.dateQuery + 1 !== splitsObject.previousDay ||
+      splitsObject.dateQuery + 1 === splitsObject.previousDay: {
+      day = "all";
+      break;
+    }
+    default: {
+      throw new Error("An Error!");
+    }
+  }
 
   let pathName;
 
-  if (type === "arrival") pathName = `/flights?day=${dateQueryParam}`;
-  if (type === "departure")
-    pathName = `/flights/departures?day=${dateQueryParam}`;
+  if (type === "arrival") pathName = `/flights?day=${day}`;
+  if (type === "departure") pathName = `/flights/departures?day=${day}`;
 
   return redirect(pathName);
 }

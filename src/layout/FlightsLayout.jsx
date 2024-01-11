@@ -8,7 +8,7 @@ import Pagination from "../components/Pagination";
 import classes from "./Layout.module.css";
 
 const FlightsLayout = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   const token = getToken();
 
@@ -28,7 +28,7 @@ const FlightsLayout = () => {
           </h4>
         </div>
       )}
-      <Pagination />
+      {search.includes("day") && <Pagination />}
       <Outlet />
       {condition && (
         <div className={classes["btn-wrapper"]}>

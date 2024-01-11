@@ -8,7 +8,7 @@ export async function deleteFlightAction({ request, params }) {
 
   const token = getToken();
 
-  if(!token) {
+  if (!token) {
     return redirect("/login");
   }
 
@@ -43,7 +43,7 @@ export async function deleteFlightAction({ request, params }) {
 
   await response.json();
 
-  return redirect(`/flights?day=${new Date().toISOString()}`);
+  return redirect(`/flights?day=${new Date().toISOString().split("T")[0]}`);
 }
 
 export async function logoutAction() {
