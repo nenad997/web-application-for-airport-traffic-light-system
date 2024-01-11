@@ -46,7 +46,18 @@ export async function action({ request, params }) {
   });
 
   if (!response.ok) {
-    errors.push({ message: "Incorrect password", path: "password" });
+    const passwordErrorIndex = errors.findIndex(
+      (err) => err.path === "password"
+    );
+    const passwordError = errors[passwordErrorIndex];
+    let newError;
+    if (passwordErrorIndex > 0) {
+      newError = { ...passwordError, message: "Incorrect password" };
+      errors[passwordErrorIndex] = newError;
+    } else {
+      newError = { message: "Incorrect password", path: "password" };
+      errors.push(newError);
+    }
     return json({ data: errors }, { status: 401 });
   }
 
