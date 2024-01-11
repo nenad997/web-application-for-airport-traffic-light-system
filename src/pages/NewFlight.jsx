@@ -1,14 +1,16 @@
 import React from "react";
-import { json, redirect } from "react-router-dom";
+import { json, redirect, useActionData } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
 import FlightForm from "../components/FlightForm";
 
 const NewFlight = () => {
+  const actionData = useActionData();
+
   return (
     <Layout marginTop={"2rem"} marginBottom={"5rem"}>
-      <FlightForm />
+      <FlightForm errors={actionData} />
     </Layout>
   );
 };
@@ -28,6 +30,13 @@ export async function action({ request, params }) {
     status,
     type,
   } = Object.fromEntries(formData);
+
+  if (!flightNumber) {
+    return json(
+      { message: "Flight number property must be set" },
+      { status: 400 }
+    );
+  }
 
   const graphqlQuery = {
     query: `

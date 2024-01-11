@@ -4,7 +4,7 @@ import { Form, Link, useActionData } from "react-router-dom";
 import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
-  const data = useActionData();
+  const actionData = useActionData();
 
   return (
     <div className={classes.wrapper}>
@@ -18,6 +18,11 @@ const LoginForm = () => {
             id="email"
             name="email"
           />
+          {actionData && actionData?.data && (
+            <p className={classes.invalid}>
+              {actionData?.data.find((d) => d.path === "email")?.message}
+            </p>
+          )}
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Password</label>
@@ -27,8 +32,10 @@ const LoginForm = () => {
             id="password"
             name="password"
           />
-          {data?.errors && (
-            <p className={classes.invalid}>{data?.errors[0]?.message}</p>
+          {actionData && actionData?.data && (
+            <p className={classes.invalid}>
+              {actionData?.data.find((d) => d.path === "password")?.message}
+            </p>
           )}
         </div>
         <div className={classes.actions}>

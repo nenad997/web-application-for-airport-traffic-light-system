@@ -14,6 +14,17 @@ export async function action({ request, params }) {
   const formData = await request.formData();
   const { email, password } = Object.fromEntries(formData);
 
+  const errors = [];
+
+  if (!email)
+    errors.push({ message: "Please enter your email address", path: "email" });
+  if (!password)
+    errors.push({ message: "Please enter your password", path: "password" });
+
+  if (errors.length > 0) {
+    return json({ data: errors }, { status: 400 });
+  }
+
   const graphqlQuery = {
     query: `
       {
@@ -35,7 +46,8 @@ export async function action({ request, params }) {
   });
 
   if (!response.ok) {
-    return response;
+    errors.push({ message: "Incorrect password", path: "password" });
+    return json({ data: errors }, { status: 401 });
   }
 
   const responseData = await response.json();

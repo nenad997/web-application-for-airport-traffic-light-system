@@ -5,6 +5,7 @@ import {
   json,
   useLoaderData,
   redirect,
+  useActionData,
 } from "react-router-dom";
 
 import { getToken } from "../authentication";
@@ -15,10 +16,16 @@ import classes from "./Page.module.css";
 const Edit = () => {
   const { flightId } = useParams();
   const flight = useLoaderData();
+  const actionData = useActionData();
 
   return (
     <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={0}>
-      <CustomForm type="edit" flight={flight} method="POST" />
+      <CustomForm
+        type="edit"
+        flight={flight}
+        method="POST"
+        errors={actionData}
+      />
       <Form method="POST" action="/delete-flight">
         <div className={classes["btn-container"]}>
           <input type="hidden" name="flightId" value={flightId} />
@@ -96,6 +103,13 @@ export async function action({ request, params }) {
     status,
     type,
   } = Object.fromEntries(formData);
+
+  if (!flightNumber) {
+    return json(
+      { message: "Flight number property must be set" },
+      { status: 400 }
+    );
+  }
 
   const graphqlQuery = {
     query: `

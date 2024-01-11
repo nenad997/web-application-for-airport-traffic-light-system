@@ -10,7 +10,7 @@ import {
 } from "../../data/airports";
 import classes from "./CustomForm.module.css";
 
-const CustomForm = ({ type, method, flight }) => {
+const CustomForm = ({ type, method, flight, errors }) => {
   const navigation = useNavigation();
 
   const isSubmitting = navigation.state === "submitting";
@@ -56,7 +56,13 @@ const CustomForm = ({ type, method, flight }) => {
           id="flight-number"
           name="flightNumber"
           defaultValue={flight ? flight.flightNumber : ""}
+          style={{ borderBottom: errors ? "3px solid red" : "none" }}
         />
+        {errors && errors?.message && (
+          <p style={{ color: "red", letterSpacing: "1px", marginTop: "10px" }}>
+            {errors?.message}
+          </p>
+        )}
       </div>
       <div className={classes.control}>
         <label htmlFor="schedule-time">Schedule Time</label>
