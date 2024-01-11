@@ -17,6 +17,11 @@ const LoginForm = () => {
             defaultValue="nenad.matijevic97@admin.com"
             id="email"
             name="email"
+            style={{
+              borderBottom: actionData?.data.find((d) => d.path === "email")
+                ? "3px solid red"
+                : "none",
+            }}
           />
           {actionData && actionData?.data && (
             <p className={classes.invalid}>
@@ -31,6 +36,11 @@ const LoginForm = () => {
             placeholder="Enter your password"
             id="password"
             name="password"
+            style={{
+              borderBottom: actionData?.data.find((d) => d.path === "password")
+                ? "3px solid red"
+                : "none",
+            }}
           />
           {actionData && actionData?.data && (
             <p className={classes.invalid}>
