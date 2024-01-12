@@ -85,7 +85,7 @@ export async function loader() {
   const token = getToken();
 
   if (!token) {
-    return redirect("/login");
+    return redirect("/auth?mode=login");
   }
   return null;
 }

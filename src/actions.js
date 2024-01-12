@@ -9,7 +9,7 @@ export async function deleteFlightAction({ request, params }) {
   const token = getToken();
 
   if (!token) {
-    return redirect("/login");
+    return redirect("/auth?mode=login");
   }
 
   if (!window.confirm("Are you sure?")) {
@@ -54,5 +54,5 @@ export async function logoutAction() {
     localStorage.removeItem("expirationTime");
   }
 
-  return redirect("/login");
+  return redirect("/auth?mode=login");
 }

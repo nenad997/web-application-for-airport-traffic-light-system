@@ -36,7 +36,7 @@ export async function loader({ request, params }) {
   const token = getToken();
 
   if (!token) {
-    return redirect("/login");
+    return redirect("/auth?mode=login");
   }
 
   const { flightId } = params;
@@ -84,7 +84,7 @@ export async function action({ request, params }) {
   const token = getToken();
 
   if (!token) {
-    return redirect("/login");
+    return redirect("/auth?mode=login");
   }
 
   const formData = await request.formData();

@@ -12,7 +12,7 @@ const RootLayout = () => {
 
   if (!token) {
     content = (
-      <Link to="/login" className={classes.login}>
+      <Link to="auth?mode=login" className={classes.login}>
         <button className={classes.button}>Log In</button>
       </Link>
     );
