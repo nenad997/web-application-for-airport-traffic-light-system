@@ -48,26 +48,6 @@ const MainNavigation = () => {
               Flights
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="practical-guide"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Practical Guide
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="parking-and-approach"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Parking & Approach
-            </NavLink>
-          </li>
         </ul>
       </nav>
     </header>
