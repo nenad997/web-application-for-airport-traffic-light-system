@@ -67,7 +67,7 @@ export async function loader() {
   const responseData = await response.json();
 
   if (responseData && !responseData.data.getFlights.length) {
-    return json({ message: "No fligts for this filter" }, { status: 412 });
+    return json({ message: "No flights for this filter" }, { status: 412 });
   }
 
   return defer({

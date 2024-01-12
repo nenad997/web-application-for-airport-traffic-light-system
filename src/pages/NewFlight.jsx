@@ -20,6 +20,10 @@ export default NewFlight;
 export async function action({ request, params }) {
   const token = getToken();
 
+  if (!token) {
+    return json({ message: "Not Authorized!" }, { status: 401 });
+  }
+
   const formData = await request.formData();
   const {
     airport,
@@ -64,7 +68,7 @@ export async function action({ request, params }) {
   });
 
   if (!response.ok) {
-    return json({ message: "Invalid input" }, { status: 422 });
+    return json({ message: "Failed to add flight" }, { status: 409 });
   }
 
   await response.json();

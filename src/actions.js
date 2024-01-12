@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { redirect, json } from "react-router-dom";
 
 import { getToken } from "./authentication";
 
@@ -38,7 +38,7 @@ export async function deleteFlightAction({ request, params }) {
   });
 
   if (!response.ok) {
-    return redirect(`/flights/${flightId}`);
+    return json({ message: "Failed to delete flight" }, { status: 404 });
   }
 
   await response.json();

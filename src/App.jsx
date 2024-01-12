@@ -18,8 +18,6 @@ import Login, {
   action as loginAction,
   loader as loginLoader,
 } from "./pages/Login";
-import LoginLayout from "./layout/LoginLayout";
-import Reset from "./pages/Reset";
 import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./actions";
 import { getToken } from "./authentication";
