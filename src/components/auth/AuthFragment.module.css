@@ -1,0 +1,100 @@
+.text-wrapper {
+  max-width: 100%;
+  margin: auto;
+  margin-top: 2rem;
+
+  & h4 {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 5px;
+  }
+}
+
+.btn-wrapper {
+  max-width: 15%;
+  margin: auto;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+
+  & a button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 25px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(106, 205, 238);
+    color: white;
+    box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+
+    &:hover {
+      background-color: rgb(138, 208, 231);
+    }
+  }
+}
+
+.login {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  border: 1px solid black;
+  border: none;
+  outline: none;
+
+  & button {
+    padding: 5px 10px;
+    background-color: rgb(125, 121, 129);
+    color: white;
+    border: none;
+    outline: none;
+    max-width: 70px;
+    min-height: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.button {
+  padding: 5px 10px;
+  background-color: rgb(125, 121, 129);
+  color: white;
+  border: none;
+  outline: none;
+  max-width: 70px;
+  min-height: 70px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .text-wrapper {
+    margin-top: 1.6rem;
+
+    & h4 {
+      font-size: 20px;
+    }
+  }
+
+  .btn-wrapper {
+    max-width: 40%;
+    margin-top: 2rem;
+
+    & button {
+      padding: 5px;
+      border-radius: 0;
+    }
+  }
+
+  .login {
+    bottom: 0.3rem;
+    right: 0.5rem;
+  }
+}

@@ -12,7 +12,7 @@ const ResetPassword = () => {
         <input type="email" placeholder="Your email" name="email" />
         <button type="submit">Reset</button>
       </Form>
-      <Link to="..">Back</Link>
+      <Link to="..">Cancel</Link>
     </Portal>,
     document.getElementById("modal")
   );

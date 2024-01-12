@@ -1,36 +1,18 @@
 import React from "react";
-import { FaRegHandPointDown } from "react-icons/fa";
-import { Outlet, Link, useLocation, defer } from "react-router-dom";
+import { Outlet, useLocation, defer, json } from "react-router-dom";
 
-import { getToken } from "../authentication";
+import AuthFragment from "../components/auth/AuthFragment";
 import Container from "../components/UI/Container";
-import FlightsNavigation from "../components/FlightsNavigation";
 import Pagination from "../components/Pagination";
-import classes from "./Layout.module.css";
 
 const FlightsLayout = () => {
   const { pathname, search } = useLocation();
 
-  const token = getToken();
-
   const pathCondition =
     pathname === "/flights" || pathname === "/flights/departures";
 
-  let authCondition = pathCondition && token;
-
   return (
-    <>
-      <FlightsNavigation />
-      {authCondition && (
-        <div className={classes["text-wrapper"]}>
-          <h4>
-            Click a flight you'd like to trigger actions{" "}
-            <span>
-              <FaRegHandPointDown />
-            </span>
-          </h4>
-        </div>
-      )}
+    <AuthFragment>
       {search.includes("day") && <Pagination />}
       {pathCondition && (
         <Container
@@ -44,14 +26,7 @@ const FlightsLayout = () => {
         />
       )}
       <Outlet />
-      {authCondition && (
-        <div className={classes["btn-wrapper"]}>
-          <Link to="add-new-flight">
-            <button title="Add a New Flight">New Flight</button>
-          </Link>
-        </div>
-      )}
-    </>
+    </AuthFragment>
   );
 };
 
@@ -85,16 +60,17 @@ export async function loader() {
     body: JSON.stringify(graphqlQuery),
   });
 
-  try {
-    const responseData = await response.json();
-
-    if (!responseData.data) {
-      return [];
-    }
-    return defer({
-      flights: await responseData.data.getFlights,
-    });
-  } catch (err) {
-    console.log(err);
+  if (!response.ok) {
+    return json({ message: "Could not fetch flights" }, { status: 404 });
   }
+
+  const responseData = await response.json();
+
+  if (responseData && !responseData.data.getFlights.length) {
+    return json({ message: "No fligts for this filter" }, { status: 412 });
+  }
+
+  return defer({
+    flights: await responseData.data.getFlights,
+  });
 }

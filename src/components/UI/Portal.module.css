@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  animation: animatePortal .3s ease-in-out;
 
   & a {
     padding: 10px 20px;
@@ -22,5 +23,13 @@
     color: white;
     margin-left: 1.2rem;
     text-align: center;
+  }
+}
+
+@keyframes animatePortal {
+  from {
+    margin-top: -10rem;
+  } to {
+    margin-top: 14rem;
   }
 }

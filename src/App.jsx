@@ -64,17 +64,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginLayout />,
-    children: [
-      {
-        index: true,
-        element: <Login />,
-        action: loginAction,
-        loader: loginLoader,
-      },
-      { path: "reset-password", element: <Reset /> },
-    ],
+    element: <Login />,
+    action: loginAction,
+    loader: loginLoader,
   },
+  // {
+  //   path: "/login",
+  //   element: <LoginLayout />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Login />,
+  //       action: loginAction,
+  //       loader: loginLoader,
+  //     },
+  //     { path: "reset-password", element: <Reset /> },
+  //   ],
+  // },
 ]);
 
 const App = () => {
