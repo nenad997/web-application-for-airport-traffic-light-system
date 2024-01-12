@@ -1,7 +1,6 @@
 import React from "react";
 import {
   useParams,
-  Form,
   json,
   useLoaderData,
   redirect,
@@ -10,8 +9,8 @@ import {
 
 import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
-import CustomForm from "../components/UI/CustomForm";
-import classes from "./Page.module.css";
+import EditForm from "../components/UI/CustomForm";
+import DeleteForm from "../components/UI/DeleteForm";
 
 const Edit = () => {
   const { flightId } = useParams();
@@ -20,18 +19,13 @@ const Edit = () => {
 
   return (
     <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={0}>
-      <CustomForm
-        type="edit"
-        flight={flight}
-        method="POST"
-        errors={actionData}
+      <EditForm type="edit" flight={flight} method="POST" errors={actionData} />
+      <DeleteForm
+        action="/delete-flight"
+        name="flightId"
+        value={flightId}
+        text="Delete Flight"
       />
-      <Form method="POST" action="/delete-flight">
-        <div className={classes["btn-container"]}>
-          <input type="hidden" name="flightId" value={flightId} />
-          <button type="submit">Delete Flight</button>
-        </div>
-      </Form>
     </Layout>
   );
 };
