@@ -5,7 +5,7 @@ import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
   const [searchParams] = useSearchParams();
-  const actionData = useActionData();
+  const errorData = useActionData();
 
   const mode = searchParams.get("mode") || "signup";
 
@@ -20,14 +20,14 @@ const AuthForm = () => {
             id="email"
             name="email"
             style={{
-              borderBottom: actionData?.data.find((d) => d.path === "email")
+              borderBottom: errorData?.data.find((d) => d.path === "email")
                 ? "3px solid red"
                 : "none",
             }}
           />
-          {actionData && actionData?.data && (
+          {errorData && errorData?.data && (
             <p className={classes.invalid}>
-              {actionData?.data.find((d) => d.path === "email")?.message}
+              {errorData?.data.find((d) => d.path === "email")?.message}
             </p>
           )}
         </div>
@@ -40,17 +40,17 @@ const AuthForm = () => {
               id="username"
               name="username"
               style={{
-                borderBottom: actionData?.data.find(
+                borderBottom: errorData?.data.find(
                   (d) => d.path === "email" && d.mode === "signup"
                 )
                   ? "3px solid red"
                   : "none",
               }}
             />
-            {actionData && actionData?.data && (
+            {errorData && errorData?.data && (
               <p className={classes.invalid}>
                 {
-                  actionData?.data.find(
+                  errorData?.data.find(
                     (d) => d.path === "email" && d.mode === "signup"
                   )?.message
                 }
@@ -66,20 +66,20 @@ const AuthForm = () => {
             id="password"
             name="password"
             style={{
-              borderBottom: actionData?.data.find((d) => d.path === "password")
+              borderBottom: errorData?.data.find((d) => d.path === "password")
                 ? "3px solid red"
                 : "none",
             }}
           />
-          {mode === "login" && actionData && actionData?.data && (
+          {mode === "login" && errorData && errorData?.data && (
             <p className={classes.invalid}>
-              {actionData?.data.find((d) => d.path === "password")?.message}
+              {errorData?.data.find((d) => d.path === "password")?.message}
             </p>
           )}
           {mode === "signup" &&
-            actionData &&
-            actionData?.data &&
-            actionData?.data
+            errorData &&
+            errorData?.data &&
+            errorData?.data
               .filter((d) => d.path === "password" && d.mode === "signup")
               .map((err, index) => (
                 <p key={index} className={classes.invalid}>
@@ -97,22 +97,22 @@ const AuthForm = () => {
                 id="repeat-password"
                 name="repeatPassword"
                 style={{
-                  borderBottom: actionData?.data.find(
+                  borderBottom: errorData?.data.find(
                     (d) => d.path === "password"
                   )
                     ? "3px solid red"
                     : "none",
                 }}
               />
-              {mode === "login" && actionData && actionData?.data && (
+              {mode === "login" && errorData && errorData?.data && (
                 <p className={classes.invalid}>
-                  {actionData?.data.find((d) => d.path === "password")?.message}
+                  {errorData?.data.find((d) => d.path === "password")?.message}
                 </p>
               )}
               {mode === "signup" &&
-                actionData &&
-                actionData?.data &&
-                actionData?.data
+                errorData &&
+                errorData?.data &&
+                errorData?.data
                   .filter((d) => d.path === "password" && d.mode === "signup")
                   .map((err, index) => (
                     <p key={index} className={classes.invalid}>
@@ -128,16 +128,16 @@ const AuthForm = () => {
                 id="employee-id"
                 name="employeeId"
                 style={{
-                  borderBottom: actionData?.data.find(
+                  borderBottom: errorData?.data.find(
                     (d) => d.path === "employeeId" && d.mode === "signup"
                   )
                     ? "3px solid red"
                     : "none",
                 }}
               />
-              {actionData &&
-                actionData?.data &&
-                actionData?.data
+              {errorData &&
+                errorData?.data &&
+                errorData?.data
                   .filter((d) => d.path === "employeeId" && d.mode === "signup")
                   .map((err, index) => (
                     <p key={index} className={classes.invalid}>

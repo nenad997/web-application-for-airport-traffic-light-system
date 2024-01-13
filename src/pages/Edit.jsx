@@ -15,11 +15,11 @@ import DeleteForm from "../components/UI/DeleteForm";
 const Edit = () => {
   const { flightId } = useParams();
   const flight = useLoaderData();
-  const actionData = useActionData();
+  const errorData = useActionData();
 
   return (
     <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={0}>
-      <EditForm type="edit" flight={flight} method="POST" errors={actionData} />
+      <EditForm type="edit" flight={flight} method="POST" errors={errorData} />
       <DeleteForm
         action="/delete-flight"
         name="flightId"

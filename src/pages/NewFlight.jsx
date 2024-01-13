@@ -6,11 +6,11 @@ import Layout from "../components/UI/Layout";
 import FlightForm from "../components/FlightForm";
 
 const NewFlight = () => {
-  const actionData = useActionData();
+  const errorData = useActionData();
 
   return (
     <Layout marginTop={"2rem"} marginBottom={"5rem"}>
-      <FlightForm errors={actionData} />
+      <FlightForm errors={errorData} />
     </Layout>
   );
 };
