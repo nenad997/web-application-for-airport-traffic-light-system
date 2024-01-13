@@ -177,11 +177,11 @@ export async function action({ request, params }) {
 }
 
 export async function loader({ request, params }) {
-  const { url } = request;
-
   const token = getToken();
 
-  const mode = url.split("?")[1].split("=")[1];
+  const queryParams = request.url.split("?")[1].split("&");
+
+  const mode = queryParams?.find((qp) => qp.includes("mode"))?.split("=")[1];
 
   if (mode !== "login" && mode !== "signup" && !token) {
     return redirect("/auth?mode=login");
