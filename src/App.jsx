@@ -14,10 +14,7 @@ import Edit, {
   loader as flightLoader,
   action as editFlightAction,
 } from "./pages/Edit";
-import Login, {
-  action as loginAction,
-  loader as loginLoader,
-} from "./pages/Login";
+import Auth, { action as authAction, loader as authLoader } from "./pages/Auth";
 import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./actions";
 import { getToken } from "./authentication";
@@ -57,9 +54,10 @@ const router = createBrowserRouter([
   },
   {
     path: "auth",
-    element: <Login />,
-    action: loginAction,
-    loader: loginLoader,
+    errorElement: <Error />,
+    element: <Auth />,
+    action: authAction,
+    loader: authLoader,
   },
 ]);
 

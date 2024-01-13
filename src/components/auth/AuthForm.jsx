@@ -3,7 +3,7 @@ import { Form, Link, useActionData, useLocation } from "react-router-dom";
 
 import classes from "./LoginForm.module.css";
 
-const LoginForm = () => {
+const AuthForm = () => {
   const { search } = useLocation();
   const actionData = useActionData();
 
@@ -166,4 +166,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default AuthForm;

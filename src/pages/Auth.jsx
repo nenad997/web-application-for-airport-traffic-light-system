@@ -2,13 +2,13 @@ import React from "react";
 import { redirect, json } from "react-router-dom";
 
 import { getToken } from "../authentication";
-import LoginForm from "../components/auth/LoginForm";
+import AuthForm from "../components/auth/AuthForm";
 
-const Login = () => {
-  return <LoginForm />;
+const Auth = () => {
+  return <AuthForm />;
 };
 
-export default Login;
+export default Auth;
 
 export async function action({ request, params }) {
   const formData = await request.formData();
