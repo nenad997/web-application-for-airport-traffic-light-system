@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
-import { Form, Link, useActionData, useLocation } from "react-router-dom";
+import { Form, Link, useActionData, useSearchParams } from "react-router-dom";
 
-import classes from "./LoginForm.module.css";
+import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
-  const { search } = useLocation();
+  const [searchParams] = useSearchParams();
   const actionData = useActionData();
 
-  const mode = search.slice(1).split("=")[1] || "login";
+  const mode = searchParams.get("mode") || "signup";
 
   return (
     <div className={classes.wrapper}>

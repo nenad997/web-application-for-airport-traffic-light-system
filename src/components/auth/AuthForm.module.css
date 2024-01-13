@@ -83,7 +83,7 @@
 
 @media screen and (max-width: 1000px) {
   .form {
-    margin: 15rem 15px 15px 15px;
+    margin: 8rem 15px 15px 15px;
   }
 
   .control {
@@ -97,5 +97,9 @@
   .actions {
     padding: 5px 15px;
     margin-top: 10px;
+  }
+
+  .invalid {
+    letter-spacing: 0;
   }
 }

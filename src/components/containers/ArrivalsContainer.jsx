@@ -1,14 +1,14 @@
 import React, { Suspense } from "react";
-import { useRouteLoaderData, Await, useLocation } from "react-router-dom";
+import { useRouteLoaderData, Await, useSearchParams } from "react-router-dom";
 
 import Flight from "../Flight";
 import { getHumanReadableDate } from "../../util/dates";
 
 const ArrivalsContainer = () => {
-  const { search } = useLocation();
+  const [searchParams] = useSearchParams();
   const { flights } = useRouteLoaderData("flights") || [];
 
-  const dateQueryParam = search.split("=")[1].split("T")[0];
+  const dateQueryParam = searchParams.get("day");
 
   const humanReadableDate = getHumanReadableDate(dateQueryParam);
 
