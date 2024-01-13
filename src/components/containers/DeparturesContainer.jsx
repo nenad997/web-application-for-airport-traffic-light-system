@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { useRouteLoaderData, Await, useLocation } from "react-router-dom";
 
 import Flight from "../Flight";
+import { getHumanReadableDate } from "../../util/dates";
 
 const DeparturesContainer = () => {
   const { search } = useLocation();
@@ -9,20 +10,23 @@ const DeparturesContainer = () => {
 
   const dateQueryParam = search.split("=")[1].split("T")[0];
 
+  const humanReadableDate = getHumanReadableDate(dateQueryParam);
+
   return (
     <Suspense fallback={<p>Loading flights...</p>}>
       <Await resolve={flights}>
-        {(loadedFlights) =>
-          loadedFlights
-            .filter(
-              dateQueryParam.startsWith("2") &&
-                dateQueryParam.toString() !== "all"
-                ? (item) =>
-                    item.createdAt.split("T")[0].toString() ===
-                      dateQueryParam.toString() && item.type === "departure"
-                : (item) => item.type === "departure"
-            )
-            .map((flight) => (
+        {(loadedFlights) => {
+          const filteredFlights = loadedFlights.filter(
+            dateQueryParam.startsWith("2") &&
+              dateQueryParam.toString() !== "all"
+              ? (item) =>
+                  item.createdAt.split("T")[0].toString() ===
+                    dateQueryParam.toString() && item.type === "departure"
+              : (item) => item.type === "departure"
+          );
+
+          return filteredFlights.length > 0 ? (
+            filteredFlights.map((flight) => (
               <Flight
                 key={flight._id}
                 id={flight._id}
@@ -35,7 +39,12 @@ const DeparturesContainer = () => {
                 status={flight.status}
               />
             ))
-        }
+          ) : (
+            <h1 style={{ textAlign: "center" }}>
+              No data for {humanReadableDate}
+            </h1>
+          );
+        }}
       </Await>
     </Suspense>
   );

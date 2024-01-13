@@ -27,3 +27,12 @@ export function parseDateString(input) {
 
   return date;
 }
+
+export function getHumanReadableDate(date) {
+  return new Date(date).toLocaleDateString("en-us", {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
