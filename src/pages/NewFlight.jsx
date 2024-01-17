@@ -3,14 +3,14 @@ import { json, redirect, useActionData } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
-import FlightForm from "../components/FlightForm";
+import AddNewFlightForm from "../components/UI/CustomForm";
 
 const NewFlight = () => {
   const errorData = useActionData();
 
   return (
-    <Layout marginTop={"2rem"} marginBottom={"5rem"}>
-      <FlightForm errors={errorData} />
+    <Layout marginTop="2rem" marginBottom="5rem">
+      <AddNewFlightForm type="submit" method="POST" errors={errorData} />
     </Layout>
   );
 };

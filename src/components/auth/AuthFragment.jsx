@@ -1,6 +1,6 @@
 import React from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { getToken } from "../../authentication";
 import FlightsNavigation from "../FlightsNavigation";
@@ -8,6 +8,7 @@ import classes from "./AuthFragment.module.css";
 
 const AuthFragment = ({ children }) => {
   const { pathname } = useLocation();
+  const { flightId } = useParams();
 
   const token = getToken();
 
@@ -18,7 +19,7 @@ const AuthFragment = ({ children }) => {
 
   return (
     <div className={classes["auth-fragment"]}>
-      <FlightsNavigation />
+      {!flightId && pathCondition && <FlightsNavigation />}
       {authCondition && (
         <div className={classes["text-wrapper"]}>
           <h4>
