@@ -70,7 +70,7 @@ const CustomForm = ({ type, method, flight, errors }) => {
           style={{ borderBottom: errors ? "3px solid red" : "none" }}
         />
         {errors && errors?.message && (
-          <p style={{ color: "red", letterSpacing: "1px", marginTop: "10px" }}>
+          <p className={classes.invalid}>
             {errors?.message}
           </p>
         )}

@@ -1,45 +1,68 @@
-import React from "react";
+import React, { Suspense, Fragment } from "react";
 import {
   useParams,
   json,
   useLoaderData,
   redirect,
   useActionData,
+  defer,
+  Await,
 } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
 import EditForm from "../components/UI/CustomForm";
 import DeleteForm from "../components/UI/DeleteForm";
+import AllFlights from "../components/AllFlights";
 
 const Edit = () => {
   const { flightId } = useParams();
-  const flight = useLoaderData();
+  const { flight, flights } = useLoaderData();
   const errorData = useActionData();
 
+  let filterTerm = flight.type;
+
   return (
-    <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={0}>
-      <EditForm type="edit" flight={flight} method="POST" errors={errorData} />
-      <DeleteForm
-        action="/delete-flight"
-        name="flightId"
-        value={flightId}
-        text="Delete Flight"
-      />
+    <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={"10rem"}>
+      <Suspense fallback={<p>Loading flight...</p>}>
+        <Await resolve={flight}>
+          {(loadedFlight) => (
+            <Fragment>
+              <EditForm
+                type="edit"
+                flight={loadedFlight}
+                method="POST"
+                errors={errorData}
+              />
+              <DeleteForm
+                action="/delete-flight"
+                name="flightId"
+                value={flightId}
+                text="Delete Flight"
+              />
+            </Fragment>
+          )}
+        </Await>
+      </Suspense>
+      <Suspense fallback={<p>Loading Flights...</p>}>
+        <Await resolve={flights}>
+          {(loadedFlights) => (
+            <AllFlights
+              loadedFlights={loadedFlights}
+              idFilter={flightId}
+              filterTerm={filterTerm}
+            />
+          )}
+        </Await>
+      </Suspense>
     </Layout>
   );
 };
 
 export default Edit;
 
-export async function loader({ request, params }) {
+async function loadFlight(flightId) {
   const token = getToken();
-
-  if (!token) {
-    return redirect("/auth?mode=login");
-  }
-
-  const { flightId } = params;
 
   const graphqlQuery = {
     query: `
@@ -76,6 +99,62 @@ export async function loader({ request, params }) {
   const responseData = await response.json();
 
   return responseData.data.getFlight;
+}
+
+async function loadFlights() {
+  const graphqlQuery = {
+    query: `
+    {
+      getFlights {
+        _id
+        airport
+        flightNumber
+        scheduleTime
+        avioCompany
+        terminal
+        status
+        type
+        createdAt
+        updatedAt
+      }
+    }
+    `,
+  };
+
+  const response = await fetch("http://localhost:8080/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(graphqlQuery),
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch flights" }, { status: 404 });
+  }
+
+  const responseData = await response.json();
+
+  if (responseData && !responseData.data.getFlights.length) {
+    return json({ message: "No flights for this filter" }, { status: 412 });
+  }
+
+  return responseData.data.getFlights;
+}
+
+export async function loader({ request, params }) {
+  const token = getToken();
+
+  if (!token) {
+    return redirect("/auth?mode=login");
+  }
+
+  const { flightId } = params;
+
+  return defer({
+    flight: await loadFlight(flightId),
+    flights: await loadFlights(),
+  });
 }
 
 export async function action({ request, params }) {

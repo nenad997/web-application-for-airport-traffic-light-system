@@ -92,7 +92,9 @@ export async function action({ request, params }) {
       }
       if (employeeId.toString() !== "ABC123") {
         errors.push({
-          message: "Could not find an employee with this ID",
+          message: `Could not find an employee with this ID ${
+            employeeId.toString() !== "" ? `(${employeeId.toString()})` : ""
+          }`,
           path: "employeeId",
           mode: "signup",
         });
@@ -181,9 +183,9 @@ export async function loader({ request, params }) {
 
   const queryParams = request.url.split("?")[1].split("&");
 
-  const mode = queryParams?.find((qp) => qp.includes("mode"))?.split("=")[1];
+  const mode = queryParams?.find((qp) => qp.startsWith("mode="))?.split("=")[1];
 
-  if (mode !== "login" && mode !== "signup" && !token) {
+  if (mode !== "login" && mode !== "signup") {
     return redirect("/auth?mode=login");
   }
 

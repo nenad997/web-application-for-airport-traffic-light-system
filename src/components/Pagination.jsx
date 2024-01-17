@@ -16,7 +16,11 @@ const Pagination = () => {
           <li key={index}>
             <Link
               to={pg.href}
-              style={{ color: dateQueryParam === pg.date ? "white" : "black" }}
+              className={
+                dateQueryParam === pg.date
+                  ? `${classes.item} ${classes["active-item"]}`
+                  : classes.item
+              }
             >
               {pg.text}
             </Link>

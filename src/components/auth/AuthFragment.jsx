@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const AuthFragment = ({ children }) => {
   const authCondition = pathCondition && token;
 
   return (
-    <Fragment>
+    <div className={classes["auth-fragment"]}>
       <FlightsNavigation />
       {authCondition && (
         <div className={classes["text-wrapper"]}>
@@ -37,7 +37,7 @@ const AuthFragment = ({ children }) => {
           </Link>
         </div>
       )}
-    </Fragment>
+    </div>
   );
 };
 

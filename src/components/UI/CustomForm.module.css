@@ -64,6 +64,12 @@
   }
 }
 
+.invalid {
+  color: red;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 1000px) {
   .form {
     max-width: 85%;

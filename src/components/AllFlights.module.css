@@ -1,0 +1,39 @@
+.container {
+  margin-top: 3.5rem;
+
+  & h1 {
+    max-width: fit-content;
+    margin: auto;
+    font-size: 40px;
+    padding: 10px;
+    letter-spacing: 1px;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.link {
+  margin: auto;
+  text-align: center;
+  margin-top: 5rem;
+  display: block;
+  max-width: fit-content;
+
+  & a {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 25px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(106, 205, 238);
+    color: white;
+    box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.75);
+    text-decoration: none;
+  }
+}

@@ -12,21 +12,33 @@
     align-items: center;
 
     & li {
-      border: 1px solid black;
       margin: 2px;
       flex: 1;
       padding: 5px;
-      background-color: rgb(230, 200, 156);
-
+      background-color: transparent;
       & a {
         display: block;
         text-decoration: none;
         color: black;
         text-transform: uppercase;
         letter-spacing: 1px;
+        font-size: 20px;
       }
     }
   }
+}
+
+.item {
+  margin: 2px;
+  flex: 1;
+  padding: 5px;
+  background-color: transparent;
+}
+
+.active-item {
+  box-shadow: 6px 10px 21px 3px rgba(62, 231, 255, 0.75);
+  -webkit-box-shadow: 6px 10px 21px 3px rgba(62, 231, 255, 0.75);
+  -moz-box-shadow: 6px 10px 21px 3px rgba(62, 231, 255, 0.75);
 }
 
 @media screen and (max-width: 1000px) {
