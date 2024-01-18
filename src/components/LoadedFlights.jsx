@@ -28,8 +28,9 @@ const LoadedFlights = ({ flights, fallback, filterTerm }) => {
               <Flight key={flight._id} {...flight} />
             ))
           ) : (
-            <h1 style={{ textAlign: "center" }}>
-              No data for {humanReadableDate}
+            <h1 className="center">
+              No data{" "}
+              {dateQueryParam !== "all" && <span>for {humanReadableDate}</span>}
             </h1>
           );
         }}

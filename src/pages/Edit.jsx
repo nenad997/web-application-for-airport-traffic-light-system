@@ -20,11 +20,11 @@ const Edit = () => {
   const { flight, flights } = useLoaderData();
   const errorData = useActionData();
 
-  let filterTerm = flight.type;
+  const filterTerm = flight?.type;
 
   return (
     <Layout backgroundColor="#FFFFFF" marginTop="2rem" marginBottom={"10rem"}>
-      <Suspense fallback={<p>Loading flight...</p>}>
+      <Suspense fallback={<p className="center">Loading flight...</p>}>
         <Await resolve={flight}>
           {(loadedFlight) => (
             <Fragment>
@@ -44,7 +44,7 @@ const Edit = () => {
           )}
         </Await>
       </Suspense>
-      <Suspense fallback={<p>Loading Flights...</p>}>
+      <Suspense fallback={<p className="center">Loading Flights...</p>}>
         <Await resolve={flights}>
           {(loadedFlights) => (
             <AllFlights
@@ -63,6 +63,10 @@ export default Edit;
 
 async function loadFlight(flightId) {
   const token = getToken();
+
+  if (!flightId) {
+    return json({ message: "Invalid flightId" }, { status: 404 });
+  }
 
   const graphqlQuery = {
     query: `
@@ -144,12 +148,11 @@ async function loadFlights() {
 
 export async function loader({ request, params }) {
   const token = getToken();
+  const { flightId } = params;
 
   if (!token) {
     return redirect("/auth?mode=login");
   }
-
-  const { flightId } = params;
 
   return defer({
     flight: await loadFlight(flightId),

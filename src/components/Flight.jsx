@@ -12,6 +12,7 @@ const Flight = ({
   terminal,
   status,
   createdAt,
+  type,
   _id,
   shouldPageRefresh = false,
 }) => {
@@ -54,18 +55,21 @@ const Flight = ({
     </div>
   );
 
-  let cmpHTML = (
-    <Link className={classes.link} to={href} title={token ? "Click Me" : ""}>
-      {linkContent}
-    </Link>
-  );
+  const linkPropAttributes = {
+    className: classes.link,
+    title: token
+      ? `${
+          type.at(0).toUpperCase() + type.slice(1)
+        } - Flight number: ${flightNumber}`
+      : undefined,
+    to: !shouldPageRefresh ? href : undefined,
+    href: shouldPageRefresh ? href : undefined,
+  };
+
+  let cmpHTML = <Link {...linkPropAttributes}>{linkContent}</Link>;
 
   if (shouldPageRefresh) {
-    cmpHTML = (
-      <a className={classes.link} href={href} title={token ? "Click Me" : ""}>
-        {linkContent}
-      </a>
-    );
+    cmpHTML = <a {...linkPropAttributes}>{linkContent}</a>;
   }
 
   return cmpHTML;

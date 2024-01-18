@@ -8,7 +8,7 @@ const Departure = () => {
 
   return (
     <LoadedFlights
-      fallback={<p>Loading departures...</p>}
+      fallback={<p className="center">Loading departures...</p>}
       filterTerm="departure"
       flights={flights}
     />

@@ -20,18 +20,20 @@ const AllFlights = ({ loadedFlights, idFilter, filterTerm }) => {
           ? "Departures"
           : ""}
       </h1>
-      <Container
-        type={
-          filterTerm === "arrival"
-            ? "Arrival"
-            : filterTerm === "departure"
-            ? "Departure"
-            : ""
-        }
-      />
-      {filteredFlights.map((flight) => (
-        <Flight key={flight._id} {...flight} shouldPageRefresh={true} />
-      ))}
+      <div>
+        <Container
+          type={
+            filterTerm === "arrival"
+              ? "Arrival"
+              : filterTerm === "departure"
+              ? "Departure"
+              : ""
+          }
+        />
+        {filteredFlights.map((flight) => (
+          <Flight key={flight._id} {...flight} shouldPageRefresh={true} />
+        ))}
+      </div>
       <p className={classes.link}>
         <Link to="/flights/add-new-flight" title="Add a New Flight">
           New Flight
@@ -39,7 +41,7 @@ const AllFlights = ({ loadedFlights, idFilter, filterTerm }) => {
       </p>
     </div>
   ) : (
-    <h1 className={classes.center}>No Flights Available</h1>
+    <h1 className="center">No Flights Available</h1>
   );
 };
 
