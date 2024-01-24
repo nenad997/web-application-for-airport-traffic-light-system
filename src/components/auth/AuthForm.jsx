@@ -6,6 +6,7 @@ import {
   isPasswordValid,
   doPasswordsMatch,
 } from "../../util/regex";
+import Input from "../UI/Input";
 import classes from "./AuthForm.module.css";
 
 const initialInput = {
@@ -67,8 +68,8 @@ const AuthForm = () => {
     <div className={classes.wrapper}>
       <Form className={classes.form} method="POST">
         <div className={classes.control}>
-          <label htmlFor="email">Email address</label>
-          <input
+          <Input
+            label="Email address"
             type="text"
             placeholder="Enter email address"
             id="email"
@@ -76,15 +77,15 @@ const AuthForm = () => {
             onChange={inputChangeHandler}
             onBlur={inputBlurHandler}
             value={enteredValue.email}
+            isFieldNotValid={isEmailNotValied}
+            invalidClassName={classes.invalid}
+            invalidMessage="Invalid Email Address"
           />
-          {isEmailNotValied && (
-            <p className={classes.invalid}>Invalid Email Address</p>
-          )}
         </div>
         {mode === "signup" && (
           <div className={classes.control}>
-            <label htmlFor="username">User name</label>
-            <input
+            <Input
+              label="User name"
               type="text"
               placeholder="Enter username"
               id="username"
@@ -92,15 +93,15 @@ const AuthForm = () => {
               onChange={inputChangeHandler}
               onBlur={inputBlurHandler}
               value={enteredValue.username}
+              isFieldNotValid={isUserNameNotValid}
+              invalidClassName={classes.invalid}
+              invalidMessage="Invalid User Name"
             />
-            {isUserNameNotValid && (
-              <p className={classes.invalid}>Invalid User Name</p>
-            )}
           </div>
         )}
         <div className={classes.control}>
-          <label htmlFor="password">Password</label>
-          <input
+          <Input
+            label="Password"
             type="password"
             placeholder="Enter password"
             id="password"
@@ -108,16 +109,18 @@ const AuthForm = () => {
             onChange={inputChangeHandler}
             onBlur={inputBlurHandler}
             value={enteredValue.password}
+            isFieldNotValid={
+              mode === "signup" && passwordsDontMatch && isPasswordNotValid
+            }
+            invalidClassName={classes.invalid}
+            invalidMessage="Passwords do not match"
           />
-          {mode === "signup" && passwordsDontMatch && isPasswordNotValid && (
-            <p className={classes.invalid}>Password do not match</p>
-          )}
         </div>
         {mode === "signup" && (
           <Fragment>
             <div className={classes.control}>
-              <label htmlFor="repeat-password">Repeat password</label>
-              <input
+              <Input
+                label="Repeat password"
                 type="password"
                 placeholder="Repeat password"
                 id="repeat-password"
@@ -125,14 +128,14 @@ const AuthForm = () => {
                 onChange={inputChangeHandler}
                 onBlur={inputBlurHandler}
                 value={enteredValue.repeatPassword}
+                isFieldNotValid={passwordsDontMatch}
+                invalidClassName={classes.invalid}
+                invalidMessage="Passwords do not match"
               />
-              {passwordsDontMatch && (
-                <p className={classes.invalid}>Passwords do not match</p>
-              )}
             </div>
             <div className={classes.control}>
-              <label htmlFor="employee-id">Employee ID</label>
-              <input
+              <Input
+                label="Employee ID"
                 type="text"
                 placeholder="Enter your ID (from your employee card)"
                 id="employee-id"
@@ -140,10 +143,10 @@ const AuthForm = () => {
                 onChange={inputChangeHandler}
                 onBlur={inputBlurHandler}
                 value={enteredValue.employeeId}
+                isFieldNotValid={isEmployeeIdNotValid}
+                invalidClassName={classes.invalid}
+                invalidMessage="Invalid Employee ID"
               />
-              {isEmployeeIdNotValid && (
-                <p className={classes.invalid}>Invalid Employee ID</p>
-              )}
             </div>
           </Fragment>
         )}
