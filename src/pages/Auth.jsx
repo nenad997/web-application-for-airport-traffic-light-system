@@ -121,9 +121,9 @@ export async function action({ request, params }) {
     }
   }
 
-  if (errors.length > 0) {
-    return json({ data: errors }, { status: 400 });
-  }
+  // if (errors.length > 0) {
+  //   return json({ data: errors }, { status: 400 });
+  // }
 
   const response = await fetch("http://localhost:8080/graphql", {
     method: "POST",
@@ -134,12 +134,12 @@ export async function action({ request, params }) {
   });
 
   if (!response.ok) {
-    const passwordErrorIndex = errors.findIndex(
-      (err) => err.path === "password" && err.mode === "login"
+    const passwordErrorIndex = errors?.findIndex(
+      (err) => err.path === "password"
     );
     const passwordError = errors[passwordErrorIndex];
     let newError;
-    if (passwordErrorIndex >= 0) {
+    if (passwordError) {
       newError = { ...passwordError, message: "Incorrect password" };
       errors[passwordErrorIndex] = newError;
     } else {
@@ -157,25 +157,31 @@ export async function action({ request, params }) {
 
   let pathName;
 
-  switch (mode) {
-    case "login": {
-      const { token } = responseData.data.login;
-      localStorage.setItem("authToken", token);
-      const expirationTime = 5 * 60 * 60 * 1000;
-      localStorage.setItem("expirationTime", expirationTime);
-      pathName = "/";
-      break;
+  try {
+    switch (mode) {
+      case "login": {
+        const { token } = responseData?.data?.login;
+        localStorage.setItem("authToken", token);
+        const expirationTime = 5 * 60 * 60 * 1000;
+        localStorage.setItem("expirationTime", expirationTime);
+        pathName = "/";
+        break;
+      }
+      case "signup": {
+        // const { _id } = responseData.data.signUp;
+        pathName = "/auth?mode=login";
+        break;
+      }
+      default: {
+        throw new Error("Invalid mode!");
+      }
     }
-    case "signup": {
-      // const { _id } = responseData.data.signUp;
-      pathName = "/auth?mode=login";
-      break;
-    }
-    default: {
-      throw new Error("Invalid mode!");
-    }
+    return redirect(pathName);
+  } catch(error) {
+    // console.log(error);
+    return responseData;
   }
-  return redirect(pathName);
+
 }
 
 export async function loader({ request, params }) {
@@ -183,7 +189,9 @@ export async function loader({ request, params }) {
 
   const queryParams = request.url.split("?")[1].split("&");
 
-  const mode = queryParams?.find((qp) => qp.startsWith("mode="))?.split("=")[1];
+  const mode =
+    queryParams?.find((qp) => qp.startsWith("mode="))?.split("=")[1] ||
+    "signup";
 
   if (mode !== "login" && mode !== "signup") {
     return redirect("/auth?mode=login");

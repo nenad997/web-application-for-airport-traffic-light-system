@@ -1,13 +1,67 @@
-import React, { Fragment } from "react";
-import { Form, Link, useActionData, useSearchParams } from "react-router-dom";
+import React, { Fragment, useState } from "react";
+import { Form, Link, useSearchParams } from "react-router-dom";
 
+import {
+  isEmailValid,
+  isPasswordValid,
+  doPasswordsMatch,
+} from "../../util/regex";
 import classes from "./AuthForm.module.css";
 
-const AuthForm = () => {
-  const [searchParams] = useSearchParams();
-  const errorData = useActionData();
+const initialInput = {
+  email: "",
+  username: "",
+  password: "",
+  repeatPassword: "",
+  employeeId: "",
+};
 
-  const mode = searchParams.get("mode") || "signup";
+const initialTouch = {
+  email: false,
+  username: false,
+  password: false,
+  repeatPassword: false,
+  employeeId: false,
+};
+
+const AuthForm = () => {
+  const [enteredValue, setEnteredValue] = useState(initialInput);
+  const [isTouched, setIsTouched] = useState(initialTouch);
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode") || "login";
+
+  const inputChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setEnteredValue((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const inputBlurHandler = (event) => {
+    const name = event.target.name;
+    setIsTouched((prevState) => ({
+      ...prevState,
+      [name]: true,
+    }));
+  };
+
+  const resetStateHandler = () => {
+    setEnteredValue(initialInput);
+    setIsTouched(initialTouch);
+  };
+
+  const isEmailNotValied = !isEmailValid(enteredValue.email) && isTouched.email;
+  const isUserNameNotValid =
+    enteredValue.username.length < 5 && isTouched.username;
+  const isPasswordNotValid =
+    !isPasswordValid(enteredValue.password) && isTouched.password;
+  const passwordsDontMatch =
+    !doPasswordsMatch(enteredValue.password, enteredValue.repeatPassword) &&
+    isTouched.password &&
+    isTouched.repeatPassword;
+  const isEmployeeIdNotValid =
+    enteredValue.employeeId.length < 5 && isTouched.employeeId;
 
   return (
     <div className={classes.wrapper}>
@@ -19,16 +73,12 @@ const AuthForm = () => {
             placeholder="Enter email address"
             id="email"
             name="email"
-            style={{
-              borderBottom: errorData?.data.find((d) => d.path === "email")
-                ? "3px solid red"
-                : "none",
-            }}
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandler}
+            value={enteredValue.email}
           />
-          {errorData && errorData?.data && (
-            <p className={classes.invalid}>
-              {errorData?.data.find((d) => d.path === "email")?.message}
-            </p>
+          {isEmailNotValied && (
+            <p className={classes.invalid}>Invalid Email Address</p>
           )}
         </div>
         {mode === "signup" && (
@@ -39,22 +89,12 @@ const AuthForm = () => {
               placeholder="Enter username"
               id="username"
               name="username"
-              style={{
-                borderBottom: errorData?.data.find(
-                  (d) => d.path === "email" && d.mode === "signup"
-                )
-                  ? "3px solid red"
-                  : "none",
-              }}
+              onChange={inputChangeHandler}
+              onBlur={inputBlurHandler}
+              value={enteredValue.username}
             />
-            {errorData && errorData?.data && (
-              <p className={classes.invalid}>
-                {
-                  errorData?.data.find(
-                    (d) => d.path === "email" && d.mode === "signup"
-                  )?.message
-                }
-              </p>
+            {isUserNameNotValid && (
+              <p className={classes.invalid}>Invalid User Name</p>
             )}
           </div>
         )}
@@ -65,27 +105,13 @@ const AuthForm = () => {
             placeholder="Enter password"
             id="password"
             name="password"
-            style={{
-              borderBottom: errorData?.data.find((d) => d.path === "password")
-                ? "3px solid red"
-                : "none",
-            }}
+            onChange={inputChangeHandler}
+            onBlur={inputBlurHandler}
+            value={enteredValue.password}
           />
-          {mode === "login" && errorData && errorData?.data && (
-            <p className={classes.invalid}>
-              {errorData?.data.find((d) => d.path === "password")?.message}
-            </p>
+          {mode === "signup" && passwordsDontMatch && isPasswordNotValid && (
+            <p className={classes.invalid}>Password do not match</p>
           )}
-          {mode === "signup" &&
-            errorData &&
-            errorData?.data &&
-            errorData?.data
-              .filter((d) => d.path === "password" && d.mode === "signup")
-              .map((err, index) => (
-                <p key={index} className={classes.invalid}>
-                  {err.message}
-                </p>
-              ))}
         </div>
         {mode === "signup" && (
           <Fragment>
@@ -96,29 +122,13 @@ const AuthForm = () => {
                 placeholder="Repeat password"
                 id="repeat-password"
                 name="repeatPassword"
-                style={{
-                  borderBottom: errorData?.data.find(
-                    (d) => d.path === "password"
-                  )
-                    ? "3px solid red"
-                    : "none",
-                }}
+                onChange={inputChangeHandler}
+                onBlur={inputBlurHandler}
+                value={enteredValue.repeatPassword}
               />
-              {mode === "login" && errorData && errorData?.data && (
-                <p className={classes.invalid}>
-                  {errorData?.data.find((d) => d.path === "password")?.message}
-                </p>
+              {passwordsDontMatch && (
+                <p className={classes.invalid}>Passwords do not match</p>
               )}
-              {mode === "signup" &&
-                errorData &&
-                errorData?.data &&
-                errorData?.data
-                  .filter((d) => d.path === "password" && d.mode === "signup")
-                  .map((err, index) => (
-                    <p key={index} className={classes.invalid}>
-                      {err.message}
-                    </p>
-                  ))}
             </div>
             <div className={classes.control}>
               <label htmlFor="employee-id">Employee ID</label>
@@ -127,23 +137,13 @@ const AuthForm = () => {
                 placeholder="Enter your ID (from your employee card)"
                 id="employee-id"
                 name="employeeId"
-                style={{
-                  borderBottom: errorData?.data.find(
-                    (d) => d.path === "employeeId" && d.mode === "signup"
-                  )
-                    ? "3px solid red"
-                    : "none",
-                }}
+                onChange={inputChangeHandler}
+                onBlur={inputBlurHandler}
+                value={enteredValue.employeeId}
               />
-              {errorData &&
-                errorData?.data &&
-                errorData?.data
-                  .filter((d) => d.path === "employeeId" && d.mode === "signup")
-                  .map((err, index) => (
-                    <p key={index} className={classes.invalid}>
-                      {err.message}
-                    </p>
-                  ))}
+              {isEmployeeIdNotValid && (
+                <p className={classes.invalid}>Invalid Employee ID</p>
+              )}
             </div>
           </Fragment>
         )}
@@ -157,7 +157,10 @@ const AuthForm = () => {
           </button>
         </div>
         <div className={classes.reset}>
-          <Link to={`?mode=${mode === "login" ? "signup" : "login"}`}>
+          <Link
+            to={`?mode=${mode === "login" ? "signup" : "login"}`}
+            onClick={resetStateHandler}
+          >
             {mode === "login" ? "Sign Up" : "Login"}
           </Link>
         </div>

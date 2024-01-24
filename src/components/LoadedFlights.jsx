@@ -15,7 +15,7 @@ const LoadedFlights = ({ flights, fallback, filterTerm }) => {
     <Suspense fallback={fallback}>
       <Await resolve={flights}>
         {(loadedFlights) => {
-          const filteredFlights = loadedFlights.filter(
+          const filteredFlights = loadedFlights?.filter(
             dateQueryParam?.startsWith("2") && dateQueryParam !== "all"
               ? (item) =>
                   item.createdAt.split("T")[0] === dateQueryParam &&
@@ -23,7 +23,7 @@ const LoadedFlights = ({ flights, fallback, filterTerm }) => {
               : (item) => item.type === filterTerm
           );
 
-          return filteredFlights.length > 0 ? (
+          return filteredFlights?.length > 0 ? (
             filteredFlights.map((flight) => (
               <Flight key={flight._id} {...flight} />
             ))
