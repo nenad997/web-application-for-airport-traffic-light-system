@@ -64,7 +64,7 @@ export async function action({ request, params }) {
       }
       if (!password) {
         errors.push({
-          message: `${invalidText}, your must should contain letters and numbers only`,
+          message: `${invalidText}, your password must should contain letters and numbers only`,
           path: "password",
           mode: "signup",
         });
@@ -162,19 +162,26 @@ export async function action({ request, params }) {
       case "login": {
         // const { token } = responseData.data.login;
         const token = responseData?.data?.login?.token;
-        if(token) {
+        if (token) {
           localStorage.setItem("authToken", token);
           const expirationTime = 5 * 60 * 60 * 1000;
           localStorage.setItem("expirationTime", expirationTime);
           pathName = "/";
         } else {
+          alert("Login failed!");
           return redirect(request.url);
         }
         break;
       }
       case "signup": {
         // const { _id } = responseData.data.signUp;
-        pathName = "/auth?mode=login";
+        const id = responseData?.data?.signUp?._id;
+        if (id) {
+          pathName = "/auth?mode=login";
+        } else {
+          alert("Signup failed!");
+          return redirect(request.url);
+        }
         break;
       }
       default: {

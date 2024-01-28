@@ -9,11 +9,31 @@ const AuthForm = () => {
   const actionData = useActionData();
   const mode = searchParams.get("mode") || "signup";
 
+  const submitTitle = mode === "login" ? "Login" : "Sign Up";
   let formClasses = classes.form;
 
   if (actionData?.data?.length > 0) {
     formClasses = `${classes.form} ${classes["invalid-form"]}`;
   }
+
+  const isEmailInvalid = actionData?.data.find((err) => err.path === "email");
+  const isUsernameInvalid = actionData?.data?.find(
+    (err) => err.path === "username" && err.mode === "signup"
+  );
+  const isPasswordInvalid =
+    actionData?.data.find(
+      (err) => err.path === "password" && err.mode === "login"
+    ) ||
+    actionData?.data.filter(
+      (err) => err.path === "password" && err.mode === "signup"
+    ).length > 0;
+  const passwordsDoNotMatch =
+    actionData?.data.filter(
+      (err) => err.path === "password" && err.mode === "signup"
+    ).length > 0;
+  const isEmployeeIdInvalid = actionData?.data.find(
+    (err) => err.path === "employeeId" && err.mode === "signup"
+  );
 
   return (
     <div className={classes.wrapper}>
@@ -25,6 +45,7 @@ const AuthForm = () => {
             placeholder="Enter email address"
             id="email"
             name="email"
+            isInvalid={isEmailInvalid}
           />
           {actionData?.data && (
             <p className={classes.invalid}>
@@ -40,6 +61,7 @@ const AuthForm = () => {
               placeholder="Enter username"
               id="username"
               name="username"
+              isInvalid={isUsernameInvalid}
             />
             {mode === "signup" && actionData?.data && (
               <p className={classes.invalid}>
@@ -59,6 +81,7 @@ const AuthForm = () => {
             placeholder="Enter password"
             id="password"
             name="password"
+            isInvalid={isPasswordInvalid}
           />
           {mode === "login" && actionData?.data && (
             <p className={classes.invalid}>
@@ -88,6 +111,7 @@ const AuthForm = () => {
                 placeholder="Repeat password"
                 id="repeat-password"
                 name="repeatPassword"
+                isInvalid={passwordsDoNotMatch}
               />
               {mode === "signup" &&
                 actionData?.data &&
@@ -108,6 +132,7 @@ const AuthForm = () => {
                 placeholder="Enter your ID (from your employee card)"
                 id="employee-id"
                 name="employeeId"
+                isInvalid={isEmployeeIdInvalid}
               />
               {mode === "signup" && actionData?.data && (
                 <p className={classes.invalid}>
@@ -124,11 +149,11 @@ const AuthForm = () => {
         )}
         <input type="hidden" name="mode" value={mode} />
         <div className={classes.actions}>
-          <Link to="/">
+          <Link to="/" title="Cancel">
             <button type="button">Cancel</button>
           </Link>
-          <button type="submit">
-            {mode === "login" ? "Login" : "Sign Up"}
+          <button type="submit" title={submitTitle}>
+            {submitTitle}
           </button>
         </div>
         <div className={classes.reset}>

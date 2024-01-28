@@ -9,9 +9,7 @@ const Input = ({
   onChange,
   onBlur,
   value,
-  isFieldNotValid,
-  invalidClassName,
-  invalidMessage,
+  isInvalid,
 }) => {
   return (
     <>
@@ -24,8 +22,8 @@ const Input = ({
         onChange={onChange}
         onBlur={onBlur}
         value={value}
+        style={{ borderBottom: isInvalid ? "3px solid red" : undefined }}
       />
-      {isFieldNotValid && <p className={invalidClassName}>{invalidMessage}</p>}
     </>
   );
 };
