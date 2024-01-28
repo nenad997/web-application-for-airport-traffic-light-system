@@ -64,7 +64,7 @@ export async function action({ request, params }) {
       }
       if (!password) {
         errors.push({
-          message: invalidText,
+          message: `${invalidText}, your must should contain letters and numbers only`,
           path: "password",
           mode: "signup",
         });
@@ -121,9 +121,9 @@ export async function action({ request, params }) {
     }
   }
 
-  // if (errors.length > 0) {
-  //   return json({ data: errors }, { status: 400 });
-  // }
+  if (errors.length > 0) {
+    return json({ data: errors }, { status: 400 });
+  }
 
   const response = await fetch("http://localhost:8080/graphql", {
     method: "POST",
@@ -135,7 +135,7 @@ export async function action({ request, params }) {
 
   if (!response.ok) {
     const passwordErrorIndex = errors?.findIndex(
-      (err) => err.path === "password"
+      (err) => err.path === "password" && err.mode === "login"
     );
     const passwordError = errors[passwordErrorIndex];
     let newError;
@@ -150,7 +150,7 @@ export async function action({ request, params }) {
       };
       errors.push(newError);
     }
-    return json({ data: errors }, { status: 401 });
+    throw json({ data: errors }, { status: 401 });
   }
 
   const responseData = await response.json();
@@ -160,11 +160,16 @@ export async function action({ request, params }) {
   try {
     switch (mode) {
       case "login": {
-        const { token } = responseData?.data?.login;
-        localStorage.setItem("authToken", token);
-        const expirationTime = 5 * 60 * 60 * 1000;
-        localStorage.setItem("expirationTime", expirationTime);
-        pathName = "/";
+        // const { token } = responseData.data.login;
+        const token = responseData?.data?.login?.token;
+        if(token) {
+          localStorage.setItem("authToken", token);
+          const expirationTime = 5 * 60 * 60 * 1000;
+          localStorage.setItem("expirationTime", expirationTime);
+          pathName = "/";
+        } else {
+          return redirect(request.url);
+        }
         break;
       }
       case "signup": {
@@ -177,11 +182,9 @@ export async function action({ request, params }) {
       }
     }
     return redirect(pathName);
-  } catch(error) {
-    // console.log(error);
-    return responseData;
+  } catch (error) {
+    alert(error.message);
   }
-
 }
 
 export async function loader({ request, params }) {

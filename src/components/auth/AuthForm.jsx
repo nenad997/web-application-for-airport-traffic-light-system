@@ -1,72 +1,23 @@
-import React, { Fragment, useState } from "react";
-import { Form, Link, useSearchParams } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Form, Link, useSearchParams, useActionData } from "react-router-dom";
 
-import {
-  isEmailValid,
-  isPasswordValid,
-  doPasswordsMatch,
-} from "../../util/regex";
 import Input from "../UI/Input";
 import classes from "./AuthForm.module.css";
 
-const initialInput = {
-  email: "",
-  username: "",
-  password: "",
-  repeatPassword: "",
-  employeeId: "",
-};
-
-const initialTouch = {
-  email: false,
-  username: false,
-  password: false,
-  repeatPassword: false,
-  employeeId: false,
-};
-
 const AuthForm = () => {
-  const [enteredValue, setEnteredValue] = useState(initialInput);
-  const [isTouched, setIsTouched] = useState(initialTouch);
   const [searchParams] = useSearchParams();
-  const mode = searchParams.get("mode") || "login";
+  const actionData = useActionData();
+  const mode = searchParams.get("mode") || "signup";
 
-  const inputChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setEnteredValue((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  let formClasses = classes.form;
 
-  const inputBlurHandler = (event) => {
-    const name = event.target.name;
-    setIsTouched((prevState) => ({
-      ...prevState,
-      [name]: true,
-    }));
-  };
-
-  const resetStateHandler = () => {
-    setEnteredValue(initialInput);
-    setIsTouched(initialTouch);
-  };
-
-  const isEmailNotValied = !isEmailValid(enteredValue.email) && isTouched.email;
-  const isUserNameNotValid =
-    enteredValue.username.length < 5 && isTouched.username;
-  const isPasswordNotValid =
-    !isPasswordValid(enteredValue.password) && isTouched.password;
-  const passwordsDontMatch =
-    !doPasswordsMatch(enteredValue.password, enteredValue.repeatPassword) &&
-    isTouched.password &&
-    isTouched.repeatPassword;
-  const isEmployeeIdNotValid =
-    enteredValue.employeeId.length < 5 && isTouched.employeeId;
+  if (actionData?.data?.length > 0) {
+    formClasses = `${classes.form} ${classes["invalid-form"]}`;
+  }
 
   return (
     <div className={classes.wrapper}>
-      <Form className={classes.form} method="POST">
+      <Form className={formClasses} method="POST">
         <div className={classes.control}>
           <Input
             label="Email address"
@@ -74,13 +25,12 @@ const AuthForm = () => {
             placeholder="Enter email address"
             id="email"
             name="email"
-            onChange={inputChangeHandler}
-            onBlur={inputBlurHandler}
-            value={enteredValue.email}
-            isFieldNotValid={isEmailNotValied}
-            invalidClassName={classes.invalid}
-            invalidMessage="Invalid Email Address"
           />
+          {actionData?.data && (
+            <p className={classes.invalid}>
+              {actionData?.data?.find((err) => err.path === "email")?.message}
+            </p>
+          )}
         </div>
         {mode === "signup" && (
           <div className={classes.control}>
@@ -90,13 +40,16 @@ const AuthForm = () => {
               placeholder="Enter username"
               id="username"
               name="username"
-              onChange={inputChangeHandler}
-              onBlur={inputBlurHandler}
-              value={enteredValue.username}
-              isFieldNotValid={isUserNameNotValid}
-              invalidClassName={classes.invalid}
-              invalidMessage="Invalid User Name"
             />
+            {mode === "signup" && actionData?.data && (
+              <p className={classes.invalid}>
+                {
+                  actionData?.data?.find(
+                    (err) => err.path === "username" && err.mode === "signup"
+                  )?.message
+                }
+              </p>
+            )}
           </div>
         )}
         <div className={classes.control}>
@@ -106,15 +59,25 @@ const AuthForm = () => {
             placeholder="Enter password"
             id="password"
             name="password"
-            onChange={inputChangeHandler}
-            onBlur={inputBlurHandler}
-            value={enteredValue.password}
-            isFieldNotValid={
-              mode === "signup" && passwordsDontMatch && isPasswordNotValid
-            }
-            invalidClassName={classes.invalid}
-            invalidMessage="Passwords do not match"
           />
+          {mode === "login" && actionData?.data && (
+            <p className={classes.invalid}>
+              {
+                actionData?.data.find(
+                  (err) => err.path === "password" && err.mode === "login"
+                )?.message
+              }
+            </p>
+          )}
+          {mode === "signup" &&
+            actionData?.data &&
+            actionData?.data
+              .filter((err) => err.path === "password" && err.mode === "signup")
+              .map((err, index) => (
+                <p className={classes.invalid} key={index}>
+                  {err.message}
+                </p>
+              ))}
         </div>
         {mode === "signup" && (
           <Fragment>
@@ -125,13 +88,18 @@ const AuthForm = () => {
                 placeholder="Repeat password"
                 id="repeat-password"
                 name="repeatPassword"
-                onChange={inputChangeHandler}
-                onBlur={inputBlurHandler}
-                value={enteredValue.repeatPassword}
-                isFieldNotValid={passwordsDontMatch}
-                invalidClassName={classes.invalid}
-                invalidMessage="Passwords do not match"
               />
+              {mode === "signup" &&
+                actionData?.data &&
+                actionData?.data
+                  .filter(
+                    (err) => err.path === "password" && err.mode === "signup"
+                  )
+                  .map((err, index) => (
+                    <p className={classes.invalid} key={index}>
+                      {err.message}
+                    </p>
+                  ))}
             </div>
             <div className={classes.control}>
               <Input
@@ -140,13 +108,17 @@ const AuthForm = () => {
                 placeholder="Enter your ID (from your employee card)"
                 id="employee-id"
                 name="employeeId"
-                onChange={inputChangeHandler}
-                onBlur={inputBlurHandler}
-                value={enteredValue.employeeId}
-                isFieldNotValid={isEmployeeIdNotValid}
-                invalidClassName={classes.invalid}
-                invalidMessage="Invalid Employee ID"
               />
+              {mode === "signup" && actionData?.data && (
+                <p className={classes.invalid}>
+                  {
+                    actionData?.data.find(
+                      (err) =>
+                        err.path === "employeeId" && err.mode === "signup"
+                    )?.message
+                  }
+                </p>
+              )}
             </div>
           </Fragment>
         )}
@@ -160,10 +132,7 @@ const AuthForm = () => {
           </button>
         </div>
         <div className={classes.reset}>
-          <Link
-            to={`?mode=${mode === "login" ? "signup" : "login"}`}
-            onClick={resetStateHandler}
-          >
+          <Link to={`?mode=${mode === "login" ? "signup" : "login"}`}>
             {mode === "login" ? "Sign Up" : "Login"}
           </Link>
         </div>

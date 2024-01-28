@@ -81,6 +81,10 @@
   letter-spacing: 1px;
 }
 
+.invalid-form {
+  border: 2px solid red;
+}
+
 @media screen and (max-width: 1000px) {
   .form {
     margin: 8rem 15px 15px 15px;
