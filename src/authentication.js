@@ -6,7 +6,15 @@ function getAuthToken() {
 export function getToken() {
   const authToken = getAuthToken();
   if (!authToken) {
-    return;
+    return null;
   }
   return authToken;
+}
+
+export function getExpirationTime() {
+  const expirationTime = localStorage.getItem("expirationTime");
+  if (!expirationTime) {
+    return null;
+  }
+  return +expirationTime;
 }

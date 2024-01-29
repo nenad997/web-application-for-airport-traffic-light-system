@@ -1,11 +1,30 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { redirect, json } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import { getToken } from "../authentication";
+import {
+  showNotificationHandler,
+  hideNotificationHandler,
+} from "../store/actions/ui-actions";
+import { uiActions } from "../store/slices/ui-slice";
+import Notification from "../components/Notification";
 import AuthForm from "../components/auth/AuthForm";
 
 const Auth = () => {
-  return <AuthForm />;
+  const { isNotificationVisible, notification } = useSelector(
+    (state) => state.ui
+  );
+  const dispatch = useDispatch();
+
+  console.log(notification);
+
+  return (
+    <Fragment>
+      {isNotificationVisible && <Notification message={notification.message} />}
+      <AuthForm />
+    </Fragment>
+  );
 };
 
 export default Auth;
@@ -157,41 +176,41 @@ export async function action({ request, params }) {
 
   let pathName;
 
-  try {
-    switch (mode) {
-      case "login": {
-        // const { token } = responseData.data.login;
-        const token = responseData?.data?.login?.token;
-        if (token) {
-          localStorage.setItem("authToken", token);
-          const expirationTime = 5 * 60 * 60 * 1000;
-          localStorage.setItem("expirationTime", expirationTime);
-          pathName = "/";
-        } else {
-          alert("Login failed!");
-          return redirect(request.url);
+    try {
+      switch (mode) {
+        case "login": {
+          // const { token } = responseData.data.login;
+          const token = responseData?.data?.login?.token;
+          if (token) {
+            localStorage.setItem("authToken", token);
+            const expirationTime = 5 * 60 * 60 * 1000;
+            localStorage.setItem("expirationTime", expirationTime);
+            pathName = "/";
+          } else {
+            alert("Login failed!");
+            return redirect(request.url);
+          }
+          break;
         }
-        break;
-      }
-      case "signup": {
-        // const { _id } = responseData.data.signUp;
-        const id = responseData?.data?.signUp?._id;
-        if (id) {
-          pathName = "/auth?mode=login";
-        } else {
-          alert("Signup failed!");
-          return redirect(request.url);
+        case "signup": {
+          // const { _id } = responseData.data.signUp;
+          const id = responseData?.data?.signUp?._id;
+          if (id) {
+            pathName = "/auth?mode=login";
+          } else {
+            alert("Signup failed!");
+            return redirect(request.url);
+          }
+          break;
         }
-        break;
+        default: {
+          throw new Error("Invalid mode!");
+        }
       }
-      default: {
-        throw new Error("Invalid mode!");
-      }
+      return redirect(pathName);
+    } catch (error) {
+      alert(error.message);
     }
-    return redirect(pathName);
-  } catch (error) {
-    alert(error.message);
-  }
 }
 
 export async function loader({ request, params }) {

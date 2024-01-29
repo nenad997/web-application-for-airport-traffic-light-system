@@ -16,22 +16,22 @@ const AuthForm = () => {
     formClasses = `${classes.form} ${classes["invalid-form"]}`;
   }
 
-  const isEmailInvalid = actionData?.data.find((err) => err.path === "email");
+  const isEmailInvalid = actionData?.data?.find((err) => err.path === "email");
   const isUsernameInvalid = actionData?.data?.find(
     (err) => err.path === "username" && err.mode === "signup"
   );
   const isPasswordInvalid =
-    actionData?.data.find(
+    actionData?.data?.find(
       (err) => err.path === "password" && err.mode === "login"
     ) ||
-    actionData?.data.filter(
+    actionData?.data?.filter(
       (err) => err.path === "password" && err.mode === "signup"
     ).length > 0;
   const passwordsDoNotMatch =
-    actionData?.data.filter(
+    actionData?.data?.filter(
       (err) => err.path === "password" && err.mode === "signup"
     ).length > 0;
-  const isEmployeeIdInvalid = actionData?.data.find(
+  const isEmployeeIdInvalid = actionData?.data?.find(
     (err) => err.path === "employeeId" && err.mode === "signup"
   );
 

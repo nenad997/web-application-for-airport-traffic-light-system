@@ -11,13 +11,13 @@ import NewFlight, {
   loader as newFlightLoader,
 } from "./pages/NewFlight";
 import Edit, {
-  loader as flightLoader,
+  loader as editFlightLoader,
   action as editFlightAction,
 } from "./pages/Edit";
 import Auth, { loader as authLoader, action as authAction } from "./pages/Auth";
 import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./actions";
-import { getToken } from "./authentication";
+import { getToken, getExpirationTime } from "./authentication";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
           {
             path: ":flightId",
             element: <Edit />,
-            loader: flightLoader,
+            loader: editFlightLoader,
             action: editFlightAction,
           },
           {
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   const token = getToken();
-  const expirationTime = +localStorage.getItem("expirationTime");
+  const expirationTime = getExpirationTime();
 
   useEffect(() => {
     const timer = setTimeout(() => {
