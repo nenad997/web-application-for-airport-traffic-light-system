@@ -1,27 +1,27 @@
-import React, { Fragment } from "react";
-import { redirect, json } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Fragment, useState } from "react";
+import { redirect, json, useActionData } from "react-router-dom";
 
 import { getToken } from "../authentication";
-import {
-  showNotificationHandler,
-  hideNotificationHandler,
-} from "../store/actions/ui-actions";
-import { uiActions } from "../store/slices/ui-slice";
 import Notification from "../components/Notification";
 import AuthForm from "../components/auth/AuthForm";
 
 const Auth = () => {
-  const { isNotificationVisible, notification } = useSelector(
-    (state) => state.ui
-  );
-  const dispatch = useDispatch();
+  const actionData = useActionData();
+  const [isNotificationVisible, setIsNotificationVisible] = useState(true);
 
-  console.log(notification);
+  const hideNotificationHandler = () => {
+    setIsNotificationVisible(false);
+  };
 
   return (
     <Fragment>
-      {isNotificationVisible && <Notification message={notification.message} />}
+      {actionData?.message && isNotificationVisible && (
+        <Notification
+          message={actionData?.message}
+          color={actionData?.color}
+          onHideNotification={hideNotificationHandler}
+        />
+      )}
       <AuthForm />
     </Fragment>
   );
@@ -176,41 +176,52 @@ export async function action({ request, params }) {
 
   let pathName;
 
-    try {
-      switch (mode) {
-        case "login": {
-          // const { token } = responseData.data.login;
-          const token = responseData?.data?.login?.token;
-          if (token) {
-            localStorage.setItem("authToken", token);
-            const expirationTime = 5 * 60 * 60 * 1000;
-            localStorage.setItem("expirationTime", expirationTime);
-            pathName = "/";
-          } else {
-            alert("Login failed!");
-            return redirect(request.url);
-          }
-          break;
+  try {
+    switch (mode) {
+      case "login": {
+        const token = responseData?.data?.login?.token;
+        if (token) {
+          localStorage.setItem("authToken", token);
+          const expirationTime = 5 * 60 * 60 * 1000;
+          localStorage.setItem("expirationTime", expirationTime);
+          pathName = "/";
+        } else {
+          return json(
+            { message: "Incorrect Password!", color: "red" },
+            { status: 401 }
+          );
         }
-        case "signup": {
-          // const { _id } = responseData.data.signUp;
-          const id = responseData?.data?.signUp?._id;
-          if (id) {
-            pathName = "/auth?mode=login";
-          } else {
-            alert("Signup failed!");
-            return redirect(request.url);
-          }
-          break;
-        }
-        default: {
-          throw new Error("Invalid mode!");
-        }
+        break;
       }
-      return redirect(pathName);
-    } catch (error) {
-      alert(error.message);
+      case "signup": {
+        const id = responseData?.data?.signUp?._id;
+        if (id) {
+          pathName = "/auth?mode=login";
+        } else {
+          return json(
+            {
+              message: "Signup Failed!",
+              color: "red",
+            },
+            { status: 401 }
+          );
+        }
+        break;
+      }
+      default: {
+        throw new Error("Invalid mode!");
+      }
     }
+    return redirect(pathName);
+  } catch (error) {
+    return json(
+      {
+        message: error.message,
+        color: "red",
+      },
+      { status: 401 }
+    );
+  }
 }
 
 export async function loader({ request, params }) {
