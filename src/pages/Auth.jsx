@@ -200,7 +200,8 @@ export async function action({ request, params }) {
         } else {
           return json(
             {
-              message: "Signup Failed!",
+              message:
+                "User with this email, already exists, please pick a different email address!",
               color: "red",
             },
             { status: 401 }
