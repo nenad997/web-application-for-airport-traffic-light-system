@@ -13,10 +13,7 @@ const initialState = {
 function reducerFn(state, action) {
   switch (action.type) {
     case "hideNotification": {
-      return {
-        errors: null,
-        isNotificationVisible: false,
-      };
+      return initialState;
     }
     case "setErrors": {
       return {
