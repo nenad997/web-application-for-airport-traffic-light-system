@@ -6,7 +6,7 @@ const Notification = ({ message, color, onHideNotification }) => {
   return (
     <div className={classes.notification}>
       <h3 style={{ color }}>{message}</h3>
-      <button onClick={onHideNotification}>&times;</button>
+      <button onClick={onHideNotification} title="Close">&times;</button>
     </div>
   );
 };

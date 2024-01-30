@@ -4,15 +4,16 @@
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  gap: 30px;
-  margin: 10px;
-  position: sticky;
+  margin: 0;
+  position: relative;
+  max-width: 100%;
   top: 10px;
   z-index: 10;
   background-color: white;
 
   & h3 {
     font-size: 25px;
+    letter-spacing: 1px;
   }
 
   & button {

@@ -26,14 +26,14 @@ const Flight = ({
 
   const previousDay = date.toISOString();
 
-  let href = `${currentPath}?index&day=${search?.split("=")[1]?.split("T")[0]}`;
+  let href = `${currentPath}?index&day=${search?.split("=")[1]?.split("T")[0]}&edit=false`;
 
   if (currentPath === `/flights?day=${previousDay}` && !token) {
-    href = `/flights?day=${previousDay}`;
+    href = `/flights?day=${previousDay}&edit=false`;
   }
 
   if (token) {
-    href = `/flights/${_id}`;
+    href = `/flights/${_id}?edit=true`;
   }
 
   const humanReadableDate = new Date(createdAt).toLocaleDateString("en-us", {

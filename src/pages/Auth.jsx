@@ -1,21 +1,57 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useReducer, useEffect } from "react";
 import { redirect, json, useActionData } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import Notification from "../components/Notification";
 import AuthForm from "../components/auth/AuthForm";
 
+const initialState = {
+  isNotificationVisible: true,
+  errors: null,
+};
+
+function reducerFn(state, action) {
+  switch (action.type) {
+    case "hideNotification": {
+      return {
+        ...state,
+        isNotificationVisible: false,
+      };
+    }
+    case "setErrors": {
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    }
+    case "clearErrors": {
+      return {
+        isNotificationVisible: false,
+        errors: null,
+      };
+    }
+    default: {
+      throw new Error("An Error Occurred!");
+    }
+  }
+}
+
 const Auth = () => {
   const actionData = useActionData();
-  const [isNotificationVisible, setIsNotificationVisible] = useState(true);
+  const [state, dispatch] = useReducer(reducerFn, initialState);
 
   const hideNotificationHandler = () => {
-    setIsNotificationVisible(false);
+    dispatch({ type: "hideNotification" });
+    dispatch({ type: "clearErrors" });
   };
+
+  useEffect(() => {
+    dispatch({ type: "setErrors", payload: actionData });
+  }, [dispatch, actionData]);
 
   return (
     <Fragment>
-      {actionData?.message && isNotificationVisible && (
+      {state.errors?.message && state.isNotificationVisible && (
         <Notification
           message={actionData?.message}
           color={actionData?.color}
@@ -186,8 +222,9 @@ export async function action({ request, params }) {
           localStorage.setItem("expirationTime", expirationTime);
           pathName = "/";
         } else {
+          redirect(request.url);
           return json(
-            { message: "Incorrect Password!", color: "red" },
+            { message: "Invalid password, or email address!", color: "red" },
             { status: 401 }
           );
         }
@@ -198,10 +235,11 @@ export async function action({ request, params }) {
         if (id) {
           pathName = "/auth?mode=login";
         } else {
+          redirect(request.url);
           return json(
             {
               message:
-                "User with this email, already exists, please pick a different email address!",
+                "User with this email already exists, please pick another email address!",
               color: "red",
             },
             { status: 401 }

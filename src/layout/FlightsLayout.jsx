@@ -1,19 +1,28 @@
 import React from "react";
-import { Outlet, useLocation, defer, json } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  defer,
+  json,
+  useSearchParams,
+} from "react-router-dom";
 
 import AuthFragment from "../components/auth/AuthFragment";
 import Container from "../components/UI/Container";
 import Pagination from "../components/Pagination";
 
 const FlightsLayout = () => {
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const dayQueryParam = searchParams.get("day");
 
   const pathCondition =
     pathname === "/flights" || pathname === "/flights/departures";
 
   return (
     <AuthFragment>
-      {search.includes("day") && <Pagination />}
+      {dayQueryParam && <Pagination />}
       {pathCondition && (
         <Container
           type={
