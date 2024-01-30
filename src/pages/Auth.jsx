@@ -14,7 +14,7 @@ function reducerFn(state, action) {
   switch (action.type) {
     case "hideNotification": {
       return {
-        ...state,
+        errors: null,
         isNotificationVisible: false,
       };
     }
@@ -22,12 +22,6 @@ function reducerFn(state, action) {
       return {
         ...state,
         errors: action.payload,
-      };
-    }
-    case "clearErrors": {
-      return {
-        isNotificationVisible: false,
-        errors: null,
       };
     }
     default: {
@@ -42,19 +36,18 @@ const Auth = () => {
 
   const hideNotificationHandler = () => {
     dispatch({ type: "hideNotification" });
-    dispatch({ type: "clearErrors" });
   };
 
   useEffect(() => {
     dispatch({ type: "setErrors", payload: actionData });
-  }, [dispatch, actionData]);
+  }, [actionData]);
 
   return (
     <Fragment>
       {state.errors?.message && state.isNotificationVisible && (
         <Notification
-          message={actionData?.message}
-          color={actionData?.color}
+          message={state.errors?.message}
+          color={state.errors?.color}
           onHideNotification={hideNotificationHandler}
         />
       )}
