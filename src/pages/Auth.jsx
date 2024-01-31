@@ -15,7 +15,7 @@ function reducerFn(state, action) {
     case "hideNotification": {
       return initialState;
     }
-    case "setErrors": {
+    case "showNotification": {
       return {
         ...state,
         errors: action.payload,
@@ -36,7 +36,7 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "setErrors", payload: actionData });
+    dispatch({ type: "showNotification", payload: actionData });
   }, [actionData]);
 
   return (
@@ -214,7 +214,7 @@ export async function action({ request, params }) {
         } else {
           redirect(request.url);
           return json(
-            { message: "Invalid password, or email address!", color: "red" },
+            { message: "Invalid password or email address!", color: "red" },
             { status: 401 }
           );
         }
@@ -248,7 +248,7 @@ export async function action({ request, params }) {
         message: error.message,
         color: "red",
       },
-      { status: 401 }
+      { status: 500 }
     );
   }
 }

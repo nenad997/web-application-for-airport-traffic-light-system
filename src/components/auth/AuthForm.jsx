@@ -16,6 +16,15 @@ const AuthForm = () => {
     formClasses = `${classes.form} ${classes["invalid-form"]}`;
   }
 
+  const authForm = document.getElementById("auth-form");
+  const inputs = authForm?.querySelectorAll("input");
+
+  const clearInputHandler = () => {
+    inputs.forEach((input) => {
+      return (input.value = "");
+    });
+  };
+
   const isEmailInvalid = actionData?.data?.find((err) => err.path === "email");
   const isUsernameInvalid = actionData?.data?.find(
     (err) => err.path === "username" && err.mode === "signup"
@@ -37,7 +46,7 @@ const AuthForm = () => {
 
   return (
     <div className={classes.wrapper}>
-      <Form className={formClasses} method="POST">
+      <Form className={formClasses} id="auth-form" method="POST">
         <div className={classes.control}>
           <Input
             label="Email address"
@@ -157,7 +166,10 @@ const AuthForm = () => {
           </button>
         </div>
         <div className={classes.reset}>
-          <Link to={`?mode=${mode === "login" ? "signup" : "login"}`}>
+          <Link
+            to={`?mode=${mode === "login" ? "signup" : "login"}`}
+            onClick={clearInputHandler}
+          >
             {mode === "login" ? "Sign Up" : "Login"}
           </Link>
         </div>
