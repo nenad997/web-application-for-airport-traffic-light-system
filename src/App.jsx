@@ -16,8 +16,8 @@ import Edit, {
 } from "./pages/Edit";
 import Auth, { loader as authLoader, action as authAction } from "./pages/Auth";
 import Error from "./components/UI/Error";
-import { deleteFlightAction, logoutAction } from "./actions";
-import { getToken, getExpirationTime } from "./authentication";
+import { deleteFlightAction, logoutAction } from "./helper-routes/actions";
+import { getToken, getExpirationTime } from "./auth/authentication";
 
 const router = createBrowserRouter([
   {

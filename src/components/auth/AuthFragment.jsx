@@ -2,8 +2,8 @@ import React from "react";
 import { FaRegHandPointDown } from "react-icons/fa";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-import { getToken } from "../../authentication";
 import FlightsNavigation from "../navigation/FlightsNavigation";
+import { getToken } from "../../auth/authentication";
 import classes from "./AuthFragment.module.css";
 
 const AuthFragment = ({ children }) => {

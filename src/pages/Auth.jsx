@@ -1,7 +1,7 @@
 import React, { Fragment, useReducer, useEffect } from "react";
 import { redirect, json, useActionData } from "react-router-dom";
 
-import { getToken } from "../authentication";
+import { getToken } from "../auth/authentication";
 import Notification from "../components/UI/Notification";
 import AuthForm from "../components/auth/AuthForm";
 

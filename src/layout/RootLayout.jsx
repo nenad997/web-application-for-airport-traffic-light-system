@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, Link, Form } from "react-router-dom";
 
-import { getToken } from "../authentication";
+import { getToken } from "../auth/authentication";
 import MainNavigation from "../components/navigation/MainNavigation";
 import AuthIcon from "../components/UI/AuthIcon";
 import classes from "./Layout.module.css";

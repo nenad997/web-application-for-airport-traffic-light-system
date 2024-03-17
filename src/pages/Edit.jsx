@@ -9,7 +9,7 @@ import {
   Await,
 } from "react-router-dom";
 
-import { getToken } from "../authentication";
+import { getToken } from "../auth/authentication";
 import Layout from "../components/UI/Layout";
 import EditForm from "../components/forms/CustomForm";
 import DeleteForm from "../components/forms/DeleteForm";

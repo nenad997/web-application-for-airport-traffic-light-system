@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { getToken } from "../../authentication";
+import { getToken } from "../../auth/authentication";
 import classes from "./Flight.module.css";
 
 const Flight = ({

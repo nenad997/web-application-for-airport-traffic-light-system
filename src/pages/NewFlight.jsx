@@ -1,7 +1,7 @@
 import React from "react";
 import { json, redirect, useActionData } from "react-router-dom";
 
-import { getToken } from "../authentication";
+import { getToken } from "../auth/authentication";
 import Layout from "../components/UI/Layout";
 import AddNewFlightForm from "../components/forms/CustomForm";
 

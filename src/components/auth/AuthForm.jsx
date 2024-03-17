@@ -50,10 +50,12 @@ const AuthForm = () => {
         <div className={classes.control}>
           <Input
             label="Email address"
-            type="text"
-            placeholder="Enter email address"
-            id="email"
-            name="email"
+            inputConfig={{
+              type: "text",
+              placeholder: "Enter email address",
+              id: "email",
+              name: "email",
+            }}
             isInvalid={isEmailInvalid}
           />
           {actionData?.data && (
@@ -66,10 +68,12 @@ const AuthForm = () => {
           <div className={classes.control}>
             <Input
               label="User name"
-              type="text"
-              placeholder="Enter username"
-              id="username"
-              name="username"
+              inputConfig={{
+                type: "text",
+                placeholder: "Enter username",
+                id: "username",
+                name: "username",
+              }}
               isInvalid={isUsernameInvalid}
             />
             {mode === "signup" && actionData?.data && (
@@ -86,10 +90,12 @@ const AuthForm = () => {
         <div className={classes.control}>
           <Input
             label="Password"
-            type="password"
-            placeholder="Enter password"
-            id="password"
-            name="password"
+            inputConfig={{
+              type: "password",
+              placeholder: "Enter password",
+              id: "password",
+              name: "password",
+            }}
             isInvalid={isPasswordInvalid}
           />
           {mode === "login" && actionData?.data && (
@@ -116,10 +122,12 @@ const AuthForm = () => {
             <div className={classes.control}>
               <Input
                 label="Repeat password"
-                type="password"
-                placeholder="Repeat password"
-                id="repeat-password"
-                name="repeatPassword"
+                inputConfig={{
+                  type: "password",
+                  placeholder: "Repeat password",
+                  id: "repeat-password",
+                  name: "repeatPassword",
+                }}
                 isInvalid={passwordsDoNotMatch}
               />
               {mode === "signup" &&
@@ -137,10 +145,12 @@ const AuthForm = () => {
             <div className={classes.control}>
               <Input
                 label="Employee ID"
-                type="text"
-                placeholder="Enter your ID (from your employee card)"
-                id="employee-id"
-                name="employeeId"
+                inputConfig={{
+                  type: "text",
+                  placeholder: "Enter your ID (from your employee card)",
+                  id: "employee-id",
+                  name: "employeeId",
+                }}
                 isInvalid={isEmployeeIdInvalid}
               />
               {mode === "signup" && actionData?.data && (
