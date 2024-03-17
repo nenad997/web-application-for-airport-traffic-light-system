@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Container from "./UI/Container";
+import Container from "../containers/Container";
 import Flight from "./Flight";
 import classes from "./AllFlights.module.css";
 

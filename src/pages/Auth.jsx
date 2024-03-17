@@ -2,7 +2,7 @@ import React, { Fragment, useReducer, useEffect } from "react";
 import { redirect, json, useActionData } from "react-router-dom";
 
 import { getToken } from "../authentication";
-import Notification from "../components/Notification";
+import Notification from "../components/UI/Notification";
 import AuthForm from "../components/auth/AuthForm";
 
 const initialState = {
@@ -214,7 +214,11 @@ export async function action({ request, params }) {
         } else {
           redirect(request.url);
           return json(
-            { message: "Invalid password or email address!", color: "red" },
+            {
+              message:
+                "Invalid email address or password, please check your credentials and try again!",
+              color: "red",
+            },
             { status: 401 }
           );
         }
@@ -223,6 +227,7 @@ export async function action({ request, params }) {
       case "signup": {
         const id = responseData?.data?.signUp?._id;
         if (id) {
+          alert("Signup successful");
           pathName = "/auth?mode=login";
         } else {
           redirect(request.url);

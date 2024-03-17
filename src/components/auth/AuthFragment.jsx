@@ -3,7 +3,7 @@ import { FaRegHandPointDown } from "react-icons/fa";
 import { Link, useLocation, useParams } from "react-router-dom";
 
 import { getToken } from "../../authentication";
-import FlightsNavigation from "../FlightsNavigation";
+import FlightsNavigation from "../navigation/FlightsNavigation";
 import classes from "./AuthFragment.module.css";
 
 const AuthFragment = ({ children }) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouteLoaderData } from "react-router-dom";
 
-import LoadedFlights from "../components/LoadedFlights";
+import LoadedFlights from "../components/flight/LoadedFlights";
 
 const Arrival = () => {
   const { flights } = useRouteLoaderData("flights");

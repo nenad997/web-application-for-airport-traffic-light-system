@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, Link, Form } from "react-router-dom";
 
 import { getToken } from "../authentication";
-import MainNavigation from "../components/MainNavigation";
+import MainNavigation from "../components/navigation/MainNavigation";
 import AuthIcon from "../components/UI/AuthIcon";
 import classes from "./Layout.module.css";
 
@@ -13,7 +13,11 @@ const RootLayout = () => {
 
   if (!token) {
     content = (
-      <Link to="auth?mode=login" className={classes.login}>
+      <Link
+        to="auth?mode=login"
+        className={classes.login}
+        title="Login or signup"
+      >
         <button className={classes.button}>
           <AuthIcon mode="login" />
         </button>
@@ -24,7 +28,11 @@ const RootLayout = () => {
   if (token) {
     content = (
       <Form method="POST" action="/logout">
-        <button type="submit" className={`${classes.login} ${classes.button}`}>
+        <button
+          type="submit"
+          className={`${classes.login} ${classes.button}`}
+          title="Logout"
+        >
           <AuthIcon mode="logout" />
         </button>
       </Form>

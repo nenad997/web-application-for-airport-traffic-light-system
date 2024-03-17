@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 import AuthFragment from "../components/auth/AuthFragment";
-import Container from "../components/UI/Container";
-import Pagination from "../components/Pagination";
+import Container from "../components/containers/Container";
+import Pagination from "../components/navigation/Pagination";
 
 const FlightsLayout = () => {
   const { pathname } = useLocation();

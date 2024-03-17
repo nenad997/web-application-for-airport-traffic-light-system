@@ -1,6 +1,6 @@
 import { redirect, json } from "react-router-dom";
 
-import { getToken } from "./authentication";
+import { getToken } from "../auth/authentication";
 
 export async function deleteFlightAction({ request, params }) {
   const formData = await request.formData();

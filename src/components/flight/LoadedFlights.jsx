@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { useSearchParams, Await } from "react-router-dom";
 
 import Flight from "./Flight";
-import { getHumanReadableDate } from "../util/dates";
+import { getHumanReadableDate } from "../../util/dates";
 
 const LoadedFlights = ({ flights, fallback, filterTerm }) => {
   const [searchParams] = useSearchParams();

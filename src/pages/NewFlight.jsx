@@ -3,7 +3,7 @@ import { json, redirect, useActionData } from "react-router-dom";
 
 import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
-import AddNewFlightForm from "../components/UI/CustomForm";
+import AddNewFlightForm from "../components/forms/CustomForm";
 
 const NewFlight = () => {
   const errorData = useActionData();

@@ -11,9 +11,9 @@ import {
 
 import { getToken } from "../authentication";
 import Layout from "../components/UI/Layout";
-import EditForm from "../components/UI/CustomForm";
-import DeleteForm from "../components/UI/DeleteForm";
-import AllFlights from "../components/AllFlights";
+import EditForm from "../components/forms/CustomForm";
+import DeleteForm from "../components/forms/DeleteForm";
+import AllFlights from "../components/flight/AllFlights";
 
 const Edit = () => {
   const { flightId } = useParams();

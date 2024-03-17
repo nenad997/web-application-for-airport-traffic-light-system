@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import paginationData from "../data/paginationData";
+import paginationData from "../../data/paginationData";
 import classes from "./Pagination.module.css";
 
 const Pagination = () => {
