@@ -26,7 +26,9 @@ const Flight = ({
 
   const previousDay = date.toISOString();
 
-  let href = `${currentPath}?index&day=${search?.split("=")[1]?.split("T")[0]}&edit=false`;
+  let href = `${currentPath}?index&day=${
+    search?.split("=")[1]?.split("T")[0]
+  }&edit=false`;
 
   if (currentPath === `/flights?day=${previousDay}` && !token) {
     href = `/flights?day=${previousDay}&edit=false`;
@@ -62,13 +64,15 @@ const Flight = ({
           type.at(0).toUpperCase() + type.slice(1)
         } - Flight number: ${flightNumber}`
       : undefined,
-    to: !shouldPageRefresh ? href : undefined,
-    href: shouldPageRefresh ? href : undefined,
+    to: href,
   };
 
   let cmpHTML = <Link {...linkPropAttributes}>{linkContent}</Link>;
 
   if (shouldPageRefresh) {
+    delete linkPropAttributes.to;
+    linkPropAttributes.href = href;
+
     cmpHTML = <a {...linkPropAttributes}>{linkContent}</a>;
   }
 
