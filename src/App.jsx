@@ -18,6 +18,10 @@ import Auth, { loader as authLoader, action as authAction } from "./pages/Auth";
 import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./helper-routes/actions";
 import { getToken, getExpirationTime } from "./auth/authentication";
+import Profile, {
+  loader as profileLoader,
+  action as profileAction,
+} from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +30,12 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
+      {
+        path: "profile",
+        element: <Profile />,
+        loader: profileLoader,
+        action: profileAction,
+      },
       {
         path: "flights",
         id: "flights",

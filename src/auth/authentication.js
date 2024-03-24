@@ -18,3 +18,13 @@ export function getExpirationTime() {
   }
   return +expirationTime;
 }
+
+export function getLoggedInUserId() {
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    return null;
+  }
+
+  return userId;
+}

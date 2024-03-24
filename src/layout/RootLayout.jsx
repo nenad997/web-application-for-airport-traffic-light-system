@@ -27,15 +27,17 @@ const RootLayout = () => {
 
   if (token) {
     content = (
-      <Form method="POST" action="/logout">
-        <button
-          type="submit"
-          className={`${classes.login} ${classes.button}`}
-          title="Logout"
-        >
-          <AuthIcon mode="logout" />
-        </button>
-      </Form>
+      <React.Fragment>
+        <Form method="POST" action="/logout">
+          <button
+            type="submit"
+            className={`${classes.login} ${classes.button}`}
+            title="Logout"
+          >
+            <AuthIcon mode="logout" />
+          </button>
+        </Form>
+      </React.Fragment>
     );
   }
 
