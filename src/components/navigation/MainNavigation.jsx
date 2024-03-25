@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { MdOutlineLocalAirport } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
 import classes from "./MainNavigation.module.css";
@@ -9,6 +9,7 @@ import { AppContext } from "../../store/AppContext";
 
 const MainNavigation = () => {
   const { showProfilePortal } = useContext(AppContext);
+  const { pathname } = useLocation();
 
   const userId = getLoggedInUserId();
   const isUserLoggedIn = Boolean(userId);
@@ -56,8 +57,8 @@ const MainNavigation = () => {
               Flights
             </NavLink>
           </li>
-          {isUserLoggedIn && (
-            <li style={{ position: "absolute", right: 0 }} title="Profile">
+          {isUserLoggedIn && pathname !== "/" && (
+            <li className={classes["profile-item"]} title="Profile">
               <button onClick={showProfilePortal}>
                 <CgProfile />
               </button>

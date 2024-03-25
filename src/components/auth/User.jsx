@@ -14,8 +14,12 @@ const User = () => {
   return (
     <section className={classes.overlay}>
       <div className={classes.modal}>
-        <h2>Current user: {userData.username}</h2>
-        <h5>Logged in at: {userData.currentTime}</h5>
+        <h2>
+          Current user: <span>{userData.username}</span>
+        </h2>
+        <h5>
+          Logged in at: <span>{userData.currentTime}</span>
+        </h5>
         <Form method="POST" className={classes.form}>
           <input type="hidden" name="userId" value={userId} />
           <button
@@ -25,7 +29,11 @@ const User = () => {
             Delete user
           </button>
         </Form>
-        <button className={classes.link} onClick={hideProfilePortal}>
+        <button
+          className={classes.close}
+          onClick={hideProfilePortal}
+          title="Close"
+        >
           Close
         </button>
       </div>

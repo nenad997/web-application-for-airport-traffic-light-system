@@ -33,7 +33,7 @@
   padding: 10px;
 
   & button[type="submit"] {
-    padding: .7rem;
+    padding: 0.7rem;
     cursor: pointer;
     border: none;
     outline: none;
@@ -44,12 +44,14 @@
   }
 }
 
-.link {
-  text-decoration: none;
+.close {
   color: black;
   font-size: 20px;
-  background-color: azure;
-  padding: 8px;
+  background-color: lawngreen;
+  padding: .7rem;
   text-transform: uppercase;
-  border-radius: 5px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
