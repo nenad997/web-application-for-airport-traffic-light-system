@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Form } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 import classes from "./User.module.css";
 import { getLoggedInUserId, getUserData } from "../../auth/authentication";
@@ -21,10 +22,14 @@ const User = () => {
           Logged in at: <span>{userData.currentTime}</span>
         </h5>
         <Form method="POST" className={classes.form}>
-          <input type="hidden" name="userId" value={userId} />
+          <input
+            type="hidden"
+            name="userId"
+            value={DOMPurify.sanitize(userId)}
+          />
           <button
             type="submit"
-            title="Warning! This action deletes current user!"
+            title="Warning! This action deletes current loggedin user, no data can be retrieved!"
           >
             Delete user
           </button>
