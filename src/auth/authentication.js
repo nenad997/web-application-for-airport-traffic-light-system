@@ -28,3 +28,20 @@ export function getLoggedInUserId() {
 
   return userId;
 }
+
+export function getUserData() {
+  const username = localStorage.getItem("username");
+  const currentTime = localStorage.getItem("currentTime");
+
+  const data = {};
+
+  if (username) {
+    data["username"] = username;
+  }
+
+  if (currentTime) {
+    data["currentTime"] = currentTime;
+  }
+
+  return data;
+}

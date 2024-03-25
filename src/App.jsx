@@ -80,6 +80,9 @@ const App = () => {
       if (token && expirationTime) {
         localStorage.removeItem("authToken");
         localStorage.removeItem("expirationTime");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+        localStorage.removeItem("currentTime");
       }
     }, expirationTime);
 

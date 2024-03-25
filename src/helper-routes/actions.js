@@ -53,6 +53,8 @@ export async function logoutAction() {
     localStorage.removeItem("authToken");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("currentTime");
   }
 
   return redirect("/auth?mode=login");

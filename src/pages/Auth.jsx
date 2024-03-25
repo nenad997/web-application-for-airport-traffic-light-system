@@ -207,11 +207,17 @@ export async function action({ request, params }) {
       case "login": {
         const token = responseData?.data?.login?.token;
         const userId = responseData?.data?.login?._id;
+        const username = responseData?.data?.login?.username;
+
+        const date = new Date();
+        const currentTime = date.toLocaleTimeString();
         if (token) {
           localStorage.setItem("authToken", token);
           const expirationTime = 5 * 60 * 60 * 1000;
           localStorage.setItem("expirationTime", expirationTime);
           localStorage.setItem("userId", userId);
+          localStorage.setItem("username", username);
+          localStorage.setItem("currentTime", currentTime);
           pathName = "/";
         } else {
           redirect(request.url);

@@ -2,23 +2,31 @@ import React from "react";
 import { Link, Form } from "react-router-dom";
 
 import classes from "./User.module.css";
-import { getLoggedInUserId } from "../../auth/authentication";
+import { getLoggedInUserId, getUserData } from "../../auth/authentication";
 
 const User = () => {
   const userId = getLoggedInUserId();
+  const userData = getUserData();
 
   return (
-    <div className={classes.profile}>
-      <section>
-        <h2>Loggedin user</h2>
-        <h5>Active since</h5>
-        <Form method="POST">
+    <section className={classes.overlay}>
+      <div className={classes.modal}>
+        <h2>Current user: {userData.username}</h2>
+        <h5>Logged in at: {userData.currentTime}</h5>
+        <Form method="POST" className={classes.form}>
           <input type="hidden" name="userId" value={userId} />
-          <button type="submit">Delete user</button>
+          <button
+            type="submit"
+            title="Warning! This action deletes current user!"
+          >
+            Delete user
+          </button>
         </Form>
-        <Link to="..">Close</Link>
-      </section>
-    </div>
+        <Link to=".." className={classes.link}>
+          Close
+        </Link>
+      </div>
+    </section>
   );
 };
 

@@ -14,6 +14,7 @@ const Flight = ({
   createdAt,
   type,
   _id,
+  userId,
   shouldPageRefresh = false,
 }) => {
   const { pathname: currentPath, search } = useLocation();
