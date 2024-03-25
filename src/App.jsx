@@ -18,10 +18,8 @@ import Auth, { loader as authLoader, action as authAction } from "./pages/Auth";
 import Error from "./components/UI/Error";
 import { deleteFlightAction, logoutAction } from "./helper-routes/actions";
 import { getToken, getExpirationTime } from "./auth/authentication";
-import Profile, {
-  loader as profileLoader,
-  action as profileAction,
-} from "./pages/Profile";
+import { profileAction } from "./helper-routes/actions";
+import { profileLoader } from "./helper-routes/loaders";
 
 const router = createBrowserRouter([
   {
@@ -30,12 +28,6 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
-      // {
-      //   path: "profile",
-      //   element: <Profile />,
-      //   loader: profileLoader,
-      //   action: profileAction,
-      // },
       {
         path: "flights",
         id: "flights",
@@ -59,6 +51,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "delete-flight", action: deleteFlightAction },
+      { path: "delete-profile", action: profileAction, loader: profileLoader },
       { path: "logout", action: logoutAction },
     ],
   },

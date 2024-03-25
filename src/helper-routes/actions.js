@@ -59,3 +59,51 @@ export async function logoutAction() {
 
   return redirect("/auth?mode=login");
 }
+
+export async function profileAction({ request }) {
+  const formData = await request.formData();
+  const { userId } = Object.fromEntries(formData);
+
+  if (!window.confirm("Are you sure?")) {
+    console.log(request);
+    return redirect(request.url);
+  }
+
+  const graphqlQuery = {
+    query: `
+        mutation {
+          deleteUser(userId: "${userId.toString()}") {
+            _id
+          }
+        }
+    `,
+  };
+
+  const response = await fetch("http://localhost:8080/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(graphqlQuery),
+  });
+
+  const itemsToRemove = [
+    "authToken",
+    "userId",
+    "expirationTime",
+    "username",
+    "currentTime",
+  ];
+
+  for (const key of itemsToRemove) {
+    localStorage.removeItem(key);
+  }
+
+  await response.json();
+
+  if (!response.ok) {
+    return json({ message: "Failed to delete user" }, { status: 500 });
+  }
+
+  return redirect("/");
+}

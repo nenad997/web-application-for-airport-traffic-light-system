@@ -21,7 +21,7 @@ const User = () => {
         <h5>
           Logged in at: <span>{userData.currentTime}</span>
         </h5>
-        <Form method="POST" className={classes.form}>
+        <Form method="POST" action="/delete-profile" className={classes.form}>
           <input
             type="hidden"
             name="userId"
