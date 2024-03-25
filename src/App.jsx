@@ -30,12 +30,12 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
-      {
-        path: "profile",
-        element: <Profile />,
-        loader: profileLoader,
-        action: profileAction,
-      },
+      // {
+      //   path: "profile",
+      //   element: <Profile />,
+      //   loader: profileLoader,
+      //   action: profileAction,
+      // },
       {
         path: "flights",
         id: "flights",

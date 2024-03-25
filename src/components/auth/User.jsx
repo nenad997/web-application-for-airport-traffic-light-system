@@ -1,10 +1,13 @@
-import React from "react";
-import { Link, Form } from "react-router-dom";
+import React, { useContext } from "react";
+import { Form } from "react-router-dom";
 
 import classes from "./User.module.css";
 import { getLoggedInUserId, getUserData } from "../../auth/authentication";
+import { AppContext } from "../../store/AppContext";
 
 const User = () => {
+  const { hideProfilePortal } = useContext(AppContext);
+
   const userId = getLoggedInUserId();
   const userData = getUserData();
 
@@ -22,9 +25,9 @@ const User = () => {
             Delete user
           </button>
         </Form>
-        <Link to=".." className={classes.link}>
+        <button className={classes.link} onClick={hideProfilePortal}>
           Close
-        </Link>
+        </button>
       </div>
     </section>
   );
